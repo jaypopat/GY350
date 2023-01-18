@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	function addLeadingZero(num) {
+  if (num < 10) {
+    return "0" + num;
+  }
+  return num;
+}
+    
+    function updateClock() {
+        
+        window.setTimeout(updateClock, 1000);
+
+        var myDate = new Date();
+
+        var h = myDate.getHours();
+        var m = myDate.getMinutes();
+        var s = myDate.getSeconds();
+        var text = h + ":" + addLeadingZero(m) + ":" + addLeadingZero(s);
+        document.getElementById("theClock").innerHTML=text;
+        window.setTimeout(updateClock, 1000);
+	}
+</script>
+<body onload="updateClock();">
+    <p id="theClock" style="text-align:center; font-size:120px;">00:00:00</p>
+</body>

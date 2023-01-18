@@ -1,0 +1,34 @@
+<html>
+  <script>
+    var images = [
+      "http://www.psychicsoftware.com/ct1113/banner-image-1.png",
+      "http://www.psychicsoftware.com/ct1113/banner-image-2.png",
+      "img3.png",
+      "img-4.png",
+      "img-5.png",
+      "img-6.png",
+    ];
+    function changeImage() {
+      var image = document.getElementById("img");
+      var imageSrc = image.src;
+      
+      // check whether the www.psychicsoftware.com is present in the image src 
+      // attribute so that we can trim the src to filename if not present
+      if (imageSrc.lastIndexOf("www.psychicsoftware.com") == -1)
+        imageSrc = imageSrc.substring(imageSrc.lastIndexOf("/") + 1);
+
+      // always goto the next index on click
+      var nextIndex = images.lastIndexOf(imageSrc) + 1;
+      if (nextIndex >= images.length) nextIndex = 0;
+
+      // update the src to the new filename
+      image.src = images[nextIndex];
+      // update the filename innerhtml from the new file name
+      document.getElementById("img_name").innerHTML = images[nextIndex];
+    }
+  </script>
+  <body>
+    <img id="img" src="http://www.psychicsoftware.com/ct1113/banner-image-1.png" onclick="changeImage()" />
+    <p id="img_name">http://www.psychicsoftware.com/ct1113/banner-image-1.png</p>
+  </body>
+</html>

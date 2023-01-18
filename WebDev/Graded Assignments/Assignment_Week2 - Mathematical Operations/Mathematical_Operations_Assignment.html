@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <script>
+      function adder() {
+        var a = parseInt(
+          document.getElementById("myform").elements["num1"].value
+        );
+        var b = parseInt(
+          document.getElementById("myform").elements["num2"].value
+        );
+        var c = parseInt(
+          document.getElementById("myform").elements["num3"].value
+        );
+        var d = parseInt(
+          document.getElementById("myform").elements["num4"].value
+        );
+        e = (a + b) * (c + d);
+        f = a + b * c + d;
+        g = d * (a - b) + c;
+        h = d * a - b + c;
+        alert("(a + b) * (c + d) = " + e);
+        document.getElementById("p1").innerHTML = e;
+        alert("a + b * c + d = " + f);
+        document.getElementById("p2").innerHTML = f;
+        alert("(d * (a - b)) + c = " + g);
+        document.getElementById("p3").innerHTML = g;
+        alert("d * a - b + c = " + h);
+        document.getElementById("p4").innerHTML = h;
+      }
+    </script>
+  </head>
+  <body>
+    <p>
+      Name - <b>Jay Popat</b><br />
+      Student ID - <b>22346566</b>
+    </p>
+    <form id="myform">
+      Enter Number a: <input type="text" name="num1" value="4" /><br /><br />
+      Enter Number b: <input type="text" name="num2" value="2" /><br /><br />
+      Enter Number c: <input type="text" name="num3" value="5" /><br /><br />
+      Enter Number d: <input type="text" name="num4" value="3" /><br /><br />
+    </form>
+    <button onclick="adder()">Submit</button><br /><br />
+    <p>(a + b) * (c + d) =</p>
+    <p id="p1">Results Are Here</p>
+    <br />
+    <p>a + b * c + d =</p>
+    <p id="p2">Results Are Here</p>
+    <br />
+    <p>(d * (a - b)) + c =</p>
+    <p id="p3">Results Are Here</p>
+    <br />
+    <p>d * a - b + c =</p>
+    <p id="p4">Results Are Here</p>
+    <br />
+  </body>
+</html>

@@ -1,0 +1,20 @@
+The constant d is the damping factor, which is used to prevent the algorithm from getting stuck in a loop of pages linking to each other. It is typically set to a value between 0 and 1.
+The variables prA, prB, prC, prD, and prE represent the PageRank values for pages A, B, C, D, and E, respectively.
+The variables prevA, prevB, prevC, prevD, and prevE are used to store the previous PageRank values for each page, which are used in the calculations for the current PageRank values.
+The for loop iterates for the number of iterations specified by the user. On each iteration, the previous PageRank values for each page are stored and the current PageRank values are calculated using the formula provided in the code.
+
+The basic idea behind PageRank is that a page is considered more important if it has many incoming links from other pages. The algorithm assigns a "score" or "rank" to each page, which is determined by the number and quality of links pointing to that page. The higher the score, the more important the page is considered to be.
+
+The PageRank algorithm uses a mathematical formula to calculate the score of a page. The basic formula is as follows:
+
+PR(A) = (1-d) + d (PR(T1)/C(T1) + ... + PR(Tn)/C(Tn))
+
+where:
+
+PR(A) is the PageRank of page A
+d is the damping factor (usually set to 0.85)
+PR(Ti) is the PageRank of page i, which is linking to page A
+C(Ti) is the number of outbound links on page i
+
+In summary, the PageRank algorithm assigns a score to each page based on the number and quality of links pointing to that page, with the formula :
+PR(A) = (1-d) + d (Σ PR(Tn)/C(Tn)) where Tn is the set of pages that link to page A, and C(Tn) is the number of outbound links on that page.

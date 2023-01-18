@@ -1,0 +1,11 @@
+Binary search is an efficient algorithm for finding an item from a sorted list of items. The binary search algorithm uses divide and conquer method. It is a search algorithm used to find an element position in the sorted array. It is useful when there is a large number of elements in an array. Binary search algorithm can be applied on sorted binary trees, sorted linear array, pointer array.
+The binary search begins by comparing the searched element with the middle element of the array. Since ‘mid’ calculate for every iteration or recursion, we divide the array into half and then try to solve the problem. If the searched value is less than the element in the middle of the array, then search continued in the lower half. Otherwise, the search continued in the upper half. We were repeating this process until the element found, or there no more array element left to search.
+
+-----------------------------------
+
+Binary Search Time Complexity
+
+To determine the complexity of the binary search algorithm, we need to know the number of comparisons made to search the ITEM in the array A containing N elements in sorted order.
+- The best-case occurs if the middle element is equal to the item to search. In that case, the loop executes only 1 time, and in Big-O notation, the complexity can express as O(1).
+- The worst case occurs if the item we are looking for is not in the array. In that case, the number of comparisons made will be the number of times the loop iterates. On each iteration, the size of the array is reduced by half before the size of the array reaches or goes below 1 (i.e., only l item to check) as we know from algorithm complexity that whenever loop size is cut to half, then, in that case, Big-O notation is expressed as log2n. Therefore, in our case, complexity is defined as O (log2n).
+- The function defined by the average number of steps over all number of steps taken in any instance of when working with data of size n. (Assumes that the input is random)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body style="position:relative">
+    <img
+      id="myImg"
+      src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"
+      height="200px"
+      width="200px"
+      style="position: absolute; left: 0px; top: 0px;z-index:1;"
+    />
+  </body>
+  <script>
+    window.onload = function(){
+    let img = document.getElementById("myImg");
+    console.log(img);
+    let left = 800;
+    let top = 100;
+
+    window.addEventListener("keyup", move);
+    function move(event) {
+      console.log(event.key);
+      if (event.key === "ArrowLeft") {
+        left -= 10;
+        img.style.left = left + "px";
+      } else if (event.key === "ArrowUp") {
+        top -= 10;
+        img.style.top = top + "px";
+      } else if (event.key === "ArrowRight") {
+        left += 10;
+        img.style.left = left + "px";
+      } else if (event.key === "ArrowDown") {
+        top += 10;
+        img.style.top = top + "px";
+      }
+    }
+    }
+  </script>
+</html>

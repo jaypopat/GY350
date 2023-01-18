@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script>
+        function wasClicked() {
+            var n = window.prompt("What is your name?");
+            var msg = "Hello, " + n + ", nice to meet you.";
+            document.getElementById("p").innerHTML = msg;
+        }
+    </script>
+  </head>
+  <body>
+    <button onclick="wasClicked();">Click Me</button>
+    <p id="p">Initial Text</p>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+You are tasked with creating a website for a fictitious online shop. You are to name this business and
+also define what it is that they sell.
+Each page should be laid out using an invisible (border=0) table, and contain a header and footer, a
+navigation area and a content area. 
+
+The navigation area should contain links to each of the three pages in the website (using hyperlink anchors <a>).
+
+The website should have three separate pages:
++ Home (home.html)
++ This should be the main landing page of your website and should show the latest news and
+updates from your business.
+
+«About Us (about html)
+«This page should explain to a new user what your business sells as well as its mission
+statement.
+
++ Contact Information (contact.html)
++ Use a list to give the contact information for the business’ Fulfilment Executive, Marketing
+Officer and Secretary. Each person should have their name and phone number listed.
+Styling
+
++ You should use an external stylesheet (i.e., a .css file separate from the .htmi files) to define styles
+for all three pages of the website. Include in this at least 4 style definitions, of your choice.
++ Submit your code as a zip archive, via Blackboard. It should consist of three html files and one .css
+file.

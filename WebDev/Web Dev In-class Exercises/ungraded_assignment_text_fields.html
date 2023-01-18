@@ -1,0 +1,36 @@
+<html>
+  <title>Calculator using 2 text fields</title>
+  <script>
+    function add(){
+      var a = document.getElementById("txtInputBox1").value;
+      var b = document.getElementById("txtInputBox2").value;
+      sum = (a) + (b)
+      document.getElementById("divOutput").innerHTML=sum;
+    }
+    function multiply(){
+      var a = document.getElementById("txtInputBox1").value;
+      var b = document.getElementById("txtInputBox2").value;
+      product = (a) * (b)
+      document.getElementById("divOutput").innerHTML=product;
+    }
+    function subtract(){
+      var a = document.getElementById("txtInputBox1").value;
+      var b = document.getElementById("txtInputBox2").value;
+      subtrated_result = (a) - (b)
+      (document.getElementById("divOutput").innerHTML=subtrated_result);
+    }
+    function divide(){
+      var a = document.getElementById("txtInputBox1").value;
+      var b = document.getElementById("txtInputBox2").value;
+      division_result = (a) / (b)
+      (document.getElementById("divOutput").innerHTML=division_result);
+    }
+  </script>
+  <body>
+    <h2>The Little Calculator (TM)</h2>
+    <input type="number" id="txtInputBox1" />
+    <input type="number" id="txtInputBox2" /><br />
+    <button onclick="add()">+</button> <button onclick="subtract()">-</button> <button onclick="multiply()">*</button> <button onclick="divide()">/</button>
+    <div id="divOutput"></div>  
+  </body>
+</html>

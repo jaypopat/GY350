@@ -1,0 +1,24 @@
+<html>
+  <script>
+    function randomPos() {
+      let div = document.getElementById("imgDiv");
+      var x = Math.random() * 600;
+      var y = Math.random() * 600;
+      div.style.left = x + "px";
+      div.style.top = y + "px";
+    }
+  </script>
+  <body>
+    <div
+      style="position: absolute; left: 0px; top: 0px"
+      id="imgDiv"
+      onClick="randomPos()"
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"
+        height="200px"
+        weight="200px"
+      />
+    </div>
+  </body>
+</html>

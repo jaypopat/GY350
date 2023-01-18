@@ -1,0 +1,36 @@
+<html>
+  <script>
+    var images = [
+      "http://www.psychicsoftware.com/ct1113/banner-image-1.png",
+      "http://www.psychicsoftware.com/ct1113/banner-image-2.png",
+      "img3.png",
+      "img-4.png",
+      "img-5.png",
+      "img-6.png",
+    ];
+
+    function firstLoad() {
+      var defaultImage = document.getElementById("img");
+      var imageName = document.getElementById("img_name");
+      defaultImage.src = images[0];
+      imageName.innerHTML = images[0];
+    }
+    function changeImage() {
+      var image = document.getElementById("img");
+      let imageSrc = image.src;
+      if (imageSrc.lastIndexOf("www.psychicsoftware.com") == -1)
+        imageSrc = imageSrc.substring(imageSrc.lastIndexOf("/") + 1);
+      var index = images.lastIndexOf(imageSrc);
+      var nextIndex = index + 1;
+
+      if (nextIndex >= images.length) nextIndex = 0;
+
+      image.src = images[nextIndex];
+      document.getElementById("img_name").innerHTML = images[nextIndex];
+    }
+  </script>
+  <body onload="firstLoad()">
+    <img id="img" src="" onclick="changeImage()" />
+    <p id="img_name"></p>
+  </body>
+</html>

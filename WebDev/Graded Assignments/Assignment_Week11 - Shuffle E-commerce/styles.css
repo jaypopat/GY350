@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+nav {
+  flex: 1;
+  text-align: center;
+}
+
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+p {
+  color: #555;
+}
+
+.container {
+  max-width: 1300px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-size: 50px;
+  line-height: 60px;
+  margin: 15px 0;
+}
+
+#btn {
+  display: inline-block;
+  background-color: #ff523b;
+  color: #fff;
+  padding: 8px 30px;
+  margin: 30px 0;
+  border-radius: 30px;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.header {
+  background-color: #f24848;
+}
+
+.header {
+  height: 100%;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin: 0 auto 80px;
+  position: relative;
+  line-height: 60px;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.logo {
+  border: #000;
+  border: solid;
+}
+td {
+  padding: 70px;
+}
+
+.soundwave {
+  height: 30px;
+  width: 80px;
+}
+
+.sc {
+  width: 100%;
+  height: auto;
+}
+
+.footer {
+  background-color: #f24848;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+hr {
+  margin-top: 25px;
+  width: 100%;
+  border: 7px dotted lightgray;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+#productGrid td,
+#productGrid th {
+  border: 1px solid #ddd;
+  padding: 16px;
+}
+
+#productGrid {
+  margin: 0 auto;
+  width: 800px;
+}
+#productGrid tr:hover {
+  background-color: #ddd;
+}
+
+#productGrid th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #e43d3d;
+  color: white;
+}
+button {
+  background-color: #e43d3d;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+#productGrid h3 {
+  font-size: 18px;
+}
+
+#productGrid p {
+  font-size: 16px;
+}
+#productGrid td:hover {
+  background-color: #f5f5f5;
+}
+
+#productGrid td:hover button {
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
+#productGrid img {
+  height: 200px;
+  width: 200px;
+}
+contact-table {
+
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+contact-table td,
+contact-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+contact-table tr:hover {
+  background-color: #ddd;
+}
+
+contact-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #e43d3d;
+  color: white;
+}

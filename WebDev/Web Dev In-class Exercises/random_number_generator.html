@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Inequality Demo</title>
+    <script>
+      function handleClick() {
+        // create 2 random numbers
+        var a = Math.floor( Math.random()*1000 );
+        var b = Math.floor( Math.random()*1000 );
+
+        // build up an output result string from some equality tests
+        var res = "a = "+a+"<br>b = "+b;
+        if (a==b)
+          res += "<br>a is equal to b";
+        else
+        res += "<br>a is not equal to b";
+        if (a<b)
+          res += "<br>a is less than b";
+        else
+          res += "<br>a is not less than b"; 
+
+        if (a>b)
+          res += "<br>a is greater than b";
+        else
+          res += "<br>a is not greater than b"; 
+        
+
+        // display the result
+        var p = document.getElementById('myParagraph');
+        p.innerHTML = res;
+      }
+    </script>
+  </head>
+  <body>
+    <p id='myParagraph'>
+      Results will display here
+    </p>
+    <button onclick='handleClick();'>Demo</button>
+  </body>
+</html>
