@@ -4,7 +4,10 @@ import requests
 import json
 
 #portfolio dict is the main dict the key for portfolio dict is the message.author.id and the value is a different sub dictionary which is called user portfolio (this is further explored in the condition where the user doesnt have a portfolio and a portfolio is created) which contains coin and amount - coin being the key and amount being the value
-my_secret = os.environ['discordtoken']
+my_secret = os.environ['token']
+#intents = discord.Intents.default()
+#intents.message_content = True
+#client = discord.Client(intents = intents)
 client = discord.Client()
 
 portfolio_dict = {}
@@ -19,7 +22,6 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------')
-
 
 def getCryptoPrices(crypto):
     URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd'
@@ -43,50 +45,55 @@ def getCryptoPrices(crypto):
 # This event will trigger when a message is sent in any of the server channels that the bot has access to
 @client.event
 async def on_message(message):
-    if message.content.startswith('!binance'):
+    if message.author ==client.user:
+        return
+    #making the code more readable
+    msg = message.content
+    msgSenderID = message.author.id
+
+    if msg.startswith('!binance'):
         await message.channel.send('https://www.binance.com/en')
-    if message.content.startswith('!bitmart'):
+    if msg.startswith('!bitmart'):
         await message.channel.send('https://www.bitmart.com/')
-    if message.content.startswith('!cg'):
+    if msg.startswith('!cg'):
         await message.channel.send('https://www.coingecko.com/')
-    if message.content.startswith('!cmc'):
+    if msg.startswith('!cmc'):
         await message.channel.send('https://coinmarketcap.com/')
-    if message.content.startswith('!'):
+    if msg.startswith('!'):
         # Split the message into command and arguments
         command, argument = message.content.split(' ', 1)
 
         if command == '!portfolio':
             # Check if the user has a portfolio
-            if message.author.id in portfolio_dict.keys():
+            if msgSenderID in portfolio_dict.keys():
                 # Create a string to store the portfolio output
                 portfolio_output_string = ''
 
                 # Loop through the user's portfolio and add each holding to the output string
-                for coin in portfolio_dict[message.author.id].keys():
-                    amount = portfolio_dict[message.author.id][coin] # assigning coin to be key and amount to be value
+                for coin in portfolio_dict[msgSenderID].keys():
+                    amount = portfolio_dict[msgSenderID][coin] # assigning coin to be key and amount to be value
                     portfolio_output_string += coin + ": " + str(amount) + '\n'
                 await message.channel.send(portfolio_output_string)
 
             else:
                 # If the user doesn't have a portfolio, inform them of this in a Discord message
-                await message.channel.send("You don't have a portfolio yet")
+                portfolio_dict[msgSenderID] = {}
+                await message.channel.send("You don't have a portfolio yet, but I've created one for you!")
 
         elif command == '!add':
-
-            if len(argument.split(' ', 1)) == 2:
-                # Get the coin and amount from the arguments
-                coin, amount = argument
+            
+                coin, amount = argument.split(' ')
                 amount = float(amount)
 
                 # Check if the user has a portfolio
-                if message.author.id in portfolio_dict:
+                if msgSenderID in portfolio_dict:
                     # Check if the user already has a holding of the specified coin
-                    if coin not in portfolio_dict[message.author.id].keys():
+                    if coin not in portfolio_dict[msgSenderID].keys():
                         price = getCryptoPrices(coin)
                         #adding a key-value pair of the holding worth.This is updated and can be checked by the user for performance related reasons
-                        portfolio_dict[message.author.id][coin] = amount
+                        portfolio_dict[msgSenderID][coin] = amount
                         value_key = amount * price
-                        portfolio_dict[message.author.id]['updating_holding_worth'] = value_key
+                        portfolio_dict[msgSenderID]['updating_holding_worth'] = value_key
 
                         if price is None:
                             await message.channel.send(coin+" is not a valid cryptocurrency")
@@ -94,36 +101,45 @@ async def on_message(message):
 
                     else:
                         # Add a new holding to the user's portfolio
-                        portfolio_dict[message.author.id][coin] = amount
+                        portfolio_dict[msgSenderID][coin] = amount
                 else:
                     # If the user doesn't have a portfolio, create one and add the holding
-                    user_portfolio = {}
-                    user_portfolio[coin] = amount #key is coin and value is amount
-                    portfolio_dict[message.author.id] = user_portfolio # creates a new portfolio in the user_portfolio dictionary
+                    
+                    portfolio_dict[msgSenderID] = {}
+                    
                 # Inform the user that the holding was added to their portfolio
                 await message.channel.send('Portfolio is created and holding added to your portfolio.')
-            else:
-                # If the user didn't provide the correct arguments, inform them of the correct usage
-                await message.channel.send('Use format: !add [coin] [amount]')
+
+                current_price = getCryptoPrices(coin)
+            
+                if current_price is not None:
+                    holding_value = current_price * float(amount)
+                    portfolio_dict[msgSenderID][coin]['holding_value'] = holding_value
+                    await message.channel.send("Added " + amount + " " + coin + " to your portfolio.")
+                else:
+                    await message.channel.send(coin + ' is not a valid cryptocurrency.')
+            
 
             # Handle the "!networth" command
         elif command == '!networth':
             # Check if the user has a portfolio
-            if message.author.id in portfolio_dict:
+            if msgSenderID in portfolio_dict:
                 # Create a variable to store the total net worth
-                if price is None:
-                    await message.channel.send(coin+" is not a valid cryptocurrency")
-                    return
                 net_worth = 0
-                for coin in portfolio_dict[message.author.id]:
+                for coin in portfolio_dict[msgSenderID]:
                     coin_price = getCryptoPrices(coin)
+                    
                     if coin_price is not None:  #price retrieved from api
-                        amount = portfolio_dict[message.author.id][coin]
+                        amount = portfolio_dict[msgSenderID][coin]
                         net_worth += amount * coin_price
-                await message.channel.send('Your total net worth is: ' +net_worth)
+                    await message.channel.send('Your total net worth is: ' +net_worth)
+                    
+                    if coin_price is None:
+                        await message.channel.send(coin+" is not a valid cryptocurrency")
+                    return
+                
             else:
                 # If the user doesn't have a portfolio, inform them of this in a Discord message
                 await message.channel.send(
-                    "You don't have a portfolio yet.To create a portfolio, use the !add command"
-                )
-client.run(my_secret)
+                    "You don't have a portfolio yet.To create a portfolio, use the !add command")
+client.run(os.environ['token'])

@@ -1,0 +1,20 @@
+<html>
+<head>
+    <script>
+        function validate() {
+            var inTxt = document.getElementById("num").value;
+            var outTxt = "";
+            for (var i=0; i<inTxt.length; i++) {
+                var c = inTxt.substr(i,1);
+                if ((c>="0" && c<="9") || c==".")
+                    outTxt += c;
+            }
+            document.getElementById("num").value = outTxt;
+        }
+    </script>
+</head>
+<body>
+	Please supply a number:
+	<input type="text" id="num" onkeyup="validate();">
+</body>
+</html>
