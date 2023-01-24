@@ -10,8 +10,6 @@
 
 5. Create a new array ‘ratingPercent’ that contains the percentage of ratings for each star, e.g. 14.3% one star, 23.8% two star, etc.
    Display this to the screen in a similar manner to task 4.(20 marks)*/
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#include <stdio.h>
 
 void main(){
 	int rating_number[21];
