@@ -5,7 +5,7 @@
         var smallestNum =100;
         var sum=0;
         var average =0;
-        function main(){
+        function operationsArrayElements(){
             for (let  i=0;i<100;i++){
                 var num = Math.floor(Math.random()*1000)
                 randomNums.push(num);
@@ -14,16 +14,17 @@
                 sum += randomNums[i];
                 average=sum/100;
         }
-        document.getElementById("firstP").innerHTML = "sum is "+sum + ", " + "average is "+average+ " , " + "biggest number is "+biggestNum+ " ," + "smallest number is "+smallestNum;
-        for (let i=0;i<100;i++){
-            document.getElementById("secondP").innerHTML += randomNums[i]+" , ";
+        var p1 = document.getElementById("para1");
+        var p2 = document.getElementById("para2");
+        p1.innerHTML = "sum is "+sum + ", " + "average is "+average+ " , " + "biggest number is "+biggestNum+ " ," + "smallest number is "+smallestNum;
+        for (let i=0;i<100;i++)
+        {
+            p2.innerHTML += randomNums[i]+" , ";
         }
-
-       
     }
     </script>
-    <body onload = "main();">
-        <p id = "firstP"></p>
-        <p id = "secondP"></p>
+    <body onload = "operationsArrayElements();">
+        <p id = "para1"></p>
+        <p id = "para2"></p>
     </body>
 </html>
