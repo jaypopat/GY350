@@ -20,8 +20,12 @@
         var p2 = document.getElementById("para2");
         p1.innerHTML = "sum is "+sum + "<br>" + "average is "+average+ "<br>" + "biggest number is "+biggestNum+ "<br>" + "smallest number is "+smallestNum;
         for (let i=0;i<100;i++)
-        {
+        {   
+            while(i!=99)
+            {
             p2.innerHTML += randomNums[i]+" , ";
+            }
+            p2.innerHTML += randomNums[i];
         }
         }
     </script>
