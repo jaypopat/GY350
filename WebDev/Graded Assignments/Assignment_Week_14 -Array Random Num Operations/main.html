@@ -1,10 +1,8 @@
 <html>
     <script>
         var randomNums =[];
-        var biggestNum =0;
+        var biggestNum = 0,sum= 0,average = 0 ;
         var smallestNum =100;
-        var sum=0;
-        var average =0;
         function operationsArrayElements()
     {
             for (let  i=0;i<100;i++)
@@ -14,16 +12,15 @@
                 if (num > biggestNum) biggestNum = num;
                 if (num < smallestNum) smallestNum = num;
                 sum += randomNums[i];
-                average=sum/100;
+                average=sum/randomNums.length;
             }
         var p1 = document.getElementById("para1");
         var p2 = document.getElementById("para2");
         p1.innerHTML = "sum is "+sum + "<br>" + "average is "+average+ "<br>" + "biggest number is "+biggestNum+ "<br>" + "smallest number is "+smallestNum;
-        for (let i=0;i<100;i++)
+        for (let i = 0;i < 100;i++)
         {   
-            
             p2.innerHTML += randomNums[i]+" , ";
-            if (i==99)
+            if (i == 99)
             {
             p2.innerHTML += randomNums[i]; //end of listed array elements
             }
