@@ -6,7 +6,7 @@
         var sum=0;
         var average =0;
         function operationsArrayElements()
-        {
+    {
             for (let  i=0;i<100;i++)
             {
                 var num = Math.floor(Math.random()*1000)
@@ -21,13 +21,14 @@
         p1.innerHTML = "sum is "+sum + "<br>" + "average is "+average+ "<br>" + "biggest number is "+biggestNum+ "<br>" + "smallest number is "+smallestNum;
         for (let i=0;i<100;i++)
         {   
-            while(i!=99)
-            {
+            
             p2.innerHTML += randomNums[i]+" , ";
+            if (i==99)
+            {
+            p2.innerHTML += randomNums[i]; //end of listed array elements
             }
-            p2.innerHTML += randomNums[i];
         }
-        }
+    }
     </script>
     <body onload = "operationsArrayElements();">
         <p id = "para1"></p>
