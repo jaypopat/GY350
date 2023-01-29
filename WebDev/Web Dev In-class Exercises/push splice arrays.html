@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <button id="btnAddNumber">Add Number</button>
+    <p id="pOutput"></p>
+  </body>
+  <script>
+        let nums = [];
+
+        document
+          .getElementById("btnAddNumber")
+          .addEventListener("click", function () {
+            let num = parseInt(prompt("Enter a number:"));
+            if (isNaN(num))
+                alert(num+" is not a number!");
+            else {
+                nums.push(num);
+                displayTable();
+            }
+          });
+
+        function displayTable() {
+          let table = "<table>";
+          for (let i = 0; i < nums.length; i++) {
+            table += "<tr>";
+            table += "<td>" + nums[i] + "</td>";
+            table +=
+              "<td><button onclick='deleteNumber(" + i + ")'>Delete</button></td>";
+            table += "</tr>";
+          }
+          table += "</table>";
+          document.getElementById("pOutput").innerHTML = table;
+        }
+
+        function deleteNumber(index) {
+          nums.splice(index, 1);
+          displayTable();
+        }
+  </script>
+</html>
