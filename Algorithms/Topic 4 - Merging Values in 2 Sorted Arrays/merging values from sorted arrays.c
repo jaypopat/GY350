@@ -1,5 +1,7 @@
-void merge(int [], int, int [], int);
+#include <stdio.h>
+#include <stdlib.h>
 
+void merge(int [], int, int [], int);
 
 // Function to merge the values in 2 integer arrays - not keeping duplicates
 // Assumes data sorted in arrA[] and arrB[]
@@ -61,4 +63,13 @@ void merge (int arrA[], int sizeA, int arrB[], int sizeB) {
 
     // write arrC to file ... To Do
 
+    // printing out the merged array
+    printf("Merged array: ");
+    for (i = 0; i < sizeC; i++) {
+        printf("%d ", arrC[i]);
+    }
+    printf("\n");
+
+    // freeing up memory allocated to arrC
+    free(arrC);
 }
