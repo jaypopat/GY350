@@ -1,6 +1,4 @@
-// CT102 January 2023
-// Topic: Functions; Algorithm Analysis
-#include <bool.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 bool isSorted(int arr[], int size);
@@ -9,42 +7,28 @@ bool isSorted(int arr[], int size);
 // return True or False
 bool isSorted(int arrA[], int size)
 {
-	int i;
-	bool sorted = true;
-	
-	for(i = 0; i < size - 1 && sorted; i++){
-		if(arrA[i] > arrA[i+1]){
-			sorted = false;
-		}
-	}
-	return(sorted);
+    int i;
+    bool sorted = true;
+    
+    for(i = 0; i < size - 1 && sorted; i++) {
+        if(arrA[i] > arrA[i+1]) {
+            sorted = false;
+        }
+    }
+    return sorted;
 }
 
-
-// variations which are incorrect - can you see why?
-
-bool isSorted(int arrA[], int size)
+int main(void)
 {
-	int i;
-	bool sorted = true;
-	
-	for(i = 0; i < size && sorted; i++){
-		if(arrA[i] > arrA[i+1]){
-			sorted = false;
-		}
-	}
-	return(sorted);
-}
+    int arrA[] = {1, 2, 3, 4, 5};
+    int sizeA = sizeof(arrA) / sizeof(arrA[0]);
+    bool sortedA = isSorted(arrA, sizeA);
+    printf("Array A is sorted: %s\n", sortedA ? "True" : "False");
 
-bool isSorted(int arrA[], int size)
-{
-	int i;
-	bool sorted = true;
-	
-	for(i = 1; i < size - 1 && sorted; i++){
-		if(arrA[0] > arrA[i]){
-			sorted = false;
-		}
-	}
-	return(sorted);
+    int arrB[] = {5, 4, 3, 2, 1};
+    int sizeB = sizeof(arrB) / sizeof(arrB[0]);
+    bool sortedB = isSorted(arrB, sizeB);
+    printf("Array B is sorted: %s\n", sortedB ? "True" : "False");
+
+    return 0;
 }
