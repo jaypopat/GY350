@@ -1,0 +1,63 @@
+<html>
+  <script>
+    function operationsArrayElements() {
+      (biggestNum = 0),
+        (sum = 0),
+        (average = 0),
+        (smallestNum = 100),
+        (randomNums = []);
+      for (let i = 0; i < 100; i++) {
+        var num = Math.floor(Math.random() * 1000);
+        randomNums.push(num);
+        if (num > biggestNum) biggestNum = num;
+        if (num < smallestNum) smallestNum = num;
+        sum += randomNums[i];
+        average = sum / randomNums.length;
+      }
+      document.getElementById("sum").innerHTML = sum;
+      document.getElementById("average").innerHTML = average;
+      document.getElementById("biggestNum").innerHTML = biggestNum;
+      document.getElementById("smallestNum").innerHTML = smallestNum;
+      document.getElementById("randomNums").innerHTML = "";
+      for (let i = 0; i < 100; i++) {
+        document.getElementById("randomNums").innerHTML +=
+          randomNums[i] + " , ";
+        if (i == 99) {
+          document.getElementById("randomNums").innerHTML += randomNums[i];
+        }
+      }
+    }
+  </script>
+  <style>
+    table {
+      width: 50%;
+    }
+  </style>
+  <body onload="operationsArrayElements();">
+    <button onclick="operationsArrayElements();">
+      Click me for a new dataset
+    </button>
+    <table>
+      <tr>
+        <td>Sum</td>
+        <td id="sum"></td>
+      </tr>
+      <tr>
+        <td>Average</td>
+        <td id="average"></td>
+      </tr>
+      <tr>
+        <td>Biggest Number</td>
+        <td id="biggestNum"></td>
+      </tr>
+      <tr>
+        <td>Smallest Number</td>
+        <td id="smallestNum"></td>
+      </tr>
+      <tr>
+        <td>Random Numbers</td>
+        <td id="randomNums"></td>
+      </tr>
+    </table>
+  </body>
+</html>
