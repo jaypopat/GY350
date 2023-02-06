@@ -1,1 +1,0 @@
-**This contains the code for algorithms module and contains concise notes on the algorithms in the form of txt files**
