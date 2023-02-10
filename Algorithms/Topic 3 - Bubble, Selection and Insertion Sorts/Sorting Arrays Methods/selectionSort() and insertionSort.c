@@ -17,7 +17,7 @@ void main() {
 	int A[] = {2, 4, 6, 5, 10, 1, 3, 9, 7, 8};
 
 	selectionSort(A, n);
-	//insertionSort(A, n);
+	insertionSort(A, n);
 
 	printf("\n Printing out Sorted array:: ");	
 	for(int i = 0; i < n; i++)
