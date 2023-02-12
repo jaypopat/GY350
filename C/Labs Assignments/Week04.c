@@ -20,18 +20,23 @@ int main(void) {
   int maximum_age = 0;
   int minimum_age = 1000000;
 
-  while (1) {
+  while (1) 
+  {
     printf("Enter the age of the child %d: ", count + 1);
     scanf("%d", &age);
 
-    if (age < 0) {
+    if (age < 0) 
+	{
       printf("While loop ending\n");
       break;
     }
 
-    if (age >= 18) {
+    if (age >= 18) 
+	{
       printf("Not a child\n");
-    } else {
+    } 
+	else 
+	{
       count++;
       sum_age += age;
 
@@ -43,7 +48,6 @@ int main(void) {
       }
     }
   }
-
   average_age = sum_age / count;
 
   printf("There are %d children\n", count);
