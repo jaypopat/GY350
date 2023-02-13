@@ -1,0 +1,25 @@
+<html>
+     <script>
+        const mainfunc = () => { 
+            let ints = [];
+            let i = 0;
+            while (i < 100) {
+                ints.push(Math.floor((Math.random() * 999)+1));
+                i++;
+            }
+            let max = Math.max(...ints);
+            let min = Math.min(...ints);
+            let sum = 0;
+            for (let j = 0; j < ints.length; j++) {
+                sum += ints[j];
+            }
+            let avg = sum / ints.length;
+            document.getElementById("nums").innerHTML = `Sum: ${sum}, Average: ${avg}, Max: ${max}, Min: ${min}`;
+            document.getElementById("ints").innerHTML = ints;
+        }
+    </script>
+<body onload="mainfunc()">
+    <p id="nums">Error!</p>
+    <p id="ints">Error!</p>
+</body>
+</html>
