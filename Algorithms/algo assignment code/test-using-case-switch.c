@@ -4,17 +4,17 @@
 
 void insertionSort(int arrA[], int size);
 void selectionSort(int arrA[], int size);
-void countSort(int arrA[], int size, int maxVal);
+void countSortRange(int[], int, int, int);
 void bubbleSort(int arrA[], int size);
 
-
+/*case statements were used to print out only one sorting algorithm at a time as my compiler wasn't able to print out
+all of them at once*/
 #define SIZE 5000
 int main()
 {
     int i;
     clock_t start, end;
     int sortedNumsArray[SIZE], unsortedNumsArray[SIZE];
-    int maxVal = 9999; // assuming all numbers in file are less than 10000
 
     // read first file into sortedNumsArray
     FILE* ptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\Labs Week 18\\sortedNums.txt", "r");
@@ -42,12 +42,12 @@ int main()
     }
     fclose(ptr);
 
-    int userInput;
+    int sortingMethodInput;
     do {
         printf("Enter a number from 1 to 4 (or -1 to exit): ");
-        scanf("%d", &userInput);
+        scanf("%d", &sortingMethodInput);
 
-        switch(userInput)
+        switch(sortingMethodInput)
         {
             case 1:
                 start = clock();
@@ -98,9 +98,10 @@ int main()
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
                 break;
+                // sort Sorted Array using bubble sort and print sorted array
             case 3:
                 start = clock();
-                countSort(sortedNumsArray, SIZE, maxVal);
+                countSortRange(sortedNumsArray, SIZE, -100,100);
                 end = clock();
                 printf("Sorted Array sorted using Count Sort:\n");
                 for (i = 0; i < SIZE; i++) {
@@ -112,7 +113,7 @@ int main()
 
                 // sort Unsorted Array using count sort and print sorted array
                 start = clock();
-                countSort(unsortedNumsArray, SIZE, maxVal);
+                countSortRange(unsortedNumsArray, SIZE, -100,100);
                 end = clock();
                 printf("Unsorted Array sorted using Count Sort:\n");
                 for (i = 0; i < SIZE; i++) {
@@ -148,61 +149,50 @@ int main()
                 break;
 
         }
-    }while (userInput!=-1);
+    }while (sortingMethodInput!=-1);
     return 0;
 }
-
-// sort an array of integers using countSort algorithm from 0 to maxVal
-void countSort(int arrA[], int size, int maxVal)
+// sort an array of integers using countSort algorithm from minVal to maxVal
+void countSortRange(int arrA[], int size, int minVal, int maxVal)
 {
 
     int i, value, count;
-    int freqSize;
     int numSwaps = 0;
     int numComparisons = 0;
+    int freqSize = maxVal - minVal + 1;
 
-    freqSize = maxVal + 1;
-
-    int *freq = (int*)malloc(freqSize * sizeof(int));   //create freq[]
-    int *arrB = (int*)malloc(size * sizeof(int));       //create arrB[] same size as arrA[]
+    int* freq = (int*)malloc(freqSize * sizeof(int));   //create freq[]
+    int* arrB = (int*)malloc(size * sizeof(int));       //create arrB[] same size as arrA[]
 
     // initialise freq[]
-    for (i = 0; i < freqSize; i++)
-    {
+    for (i = 0; i < freqSize; i++) {
         freq[i] = 0;
     }
 
     // count frequencies
-    for (i = 0; i < size; i++)
-    {
-        ++freq[ arrA[i] ];
+    for (i = 0; i < size; i++) {
+        ++freq[arrA[i] - minVal];
     }
 
     // get <= in freq[]
-    for (i = 1; i < freqSize; i++)
-    {
+    for (i = 1; i < freqSize; i++) {
         freq[i] = freq[i] + freq[i - 1];
     }
 
-    // place values from arrA into arrB; update freq[]
-    for (i = 0; i < size; i++)
-    {
-        value = arrA[i];			//value to sort
-        count = freq[value];		//<= freq of value
-        arrB[count - 1] = value; 	//place value in arrB
-        --freq[value];				//decrement freq[]
-        numSwaps++;
-        numComparisons++;
-    } //next value in arrA
+    // place values from arrA[] into arrB[]; update freq[]
+    for (i = 0; i < size; i++) {
+        value = arrA[i];			        //value to sort
+        count = freq[value - minVal];		//<= freq of value
+        arrB[count - 1] = value; 	        //place value in arrB
+        --freq[value - minVal];				//decrement freq[]
+    } //get next value in arrA[]
 
     //write back sorted values to arrA[] now that sorting finished
-    for (i = 0; i < size; i++)
-    {
+    for (i = 0; i < size; i++) {
         arrA[i] = arrB[i];
     }
     free(freq);
-    printf("Count Sort: %d swaps, %d comparisons\n", numSwaps, numComparisons);
-
+    puts("No comparisons or swaps take place in count sort");
 }
 void bubbleSort(int arrA[], int size)
 {
