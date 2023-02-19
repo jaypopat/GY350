@@ -9,26 +9,32 @@ void main() {
     int i =0;
     int j=0;
     fptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\Labs Week 18\\dict.txt", "r");
-    if (fptr == NULL) {
+    if (fptr == NULL) 
+    {
         puts("Error Opening File");
         return;
     }
-    while(!feof(fptr)){
+    while(!feof(fptr))
+    {
         char c = fgetc(fptr);
-        if (c == '\n'){
+        if (c == '\n')
+        {
             dictionary[i][j]='\0';
             i++;
             j=0;
         }
-        else{
+        else
+        {
             dictionary[i][j]= c;
             j++;
         }
 
     }
     fclose(fptr);
-    for ( i = 0; i < 10000; i++) {
-        for ( j = 0; j < 50; j++) {
+    for ( i = 0; i < 10000; i++) 
+    {
+        for ( j = 0; j < 50; j++) 
+        {
             if (dictionary[i][j] == '\0') 
             {
                 break;
@@ -42,8 +48,10 @@ void main() {
     // but each word is parsed and separated using a newline
 
     int num_filteredWords=0;
-    for (i = 0; i < 10000; i++) {
-        if (strlen(dictionary[i])<4 || strlen(dictionary[i])>7){
+    for (i = 0; i < 10000; i++) 
+    {
+        if (strlen(dictionary[i])<4 || strlen(dictionary[i])>7)
+        {
             continue; // skips the strings
         }
         strcpy(filteredDict[num_filteredWords],dictionary[i]);
@@ -51,9 +59,12 @@ void main() {
     }
     printf("%d", num_filteredWords);
 
-    for ( i = 0; i <num_filteredWords ; i++) {
-        for ( j = 0; j <20 ; j++) {
-            printf("%c", filteredDict[i][j]);
+    for (i = 0; i < num_filteredWords; i++) 
+    {
+        for (j = 0; filteredDict[i][j] != '\0'; j++) 
+        {
+        printf("%c", filteredDict[i][j]);
         }
+    printf("\n");
     }
 }
