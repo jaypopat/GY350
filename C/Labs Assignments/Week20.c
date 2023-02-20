@@ -48,8 +48,8 @@ int main()
         printf("\n");
     }
 
-    // after debugging -> found out strlen doesnt work --> strings are not null terminated which is why have to manually add it with code above
-    // but each word_token is parsed and separated using a newline
+    // after debugging -> found out strlen doesnt work --> strings are not null terminated which is why have to 
+    // manually add it with code above but each word_token is parsed and separated using a newline
 
     char *word_token = strtok(dictionary[0], "\n");
     int num_filteredWords=0;

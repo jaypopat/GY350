@@ -9,7 +9,7 @@
 4. Test your program by creating 4 passcodes. The first between [0, 9], second between [0, 99], third [0, 999], and fourth [0, 9999]. For each of these passcodes, use both ‘randomPasscodeSearch’ and ‘orderedPasscodeSearch’ functions. (20 marks)
 
 5. Test your program once more by setting the passcode to the final 3 digits of your student ID. Again, use both ‘randomPasscodeSearch’ and ‘orderedPasscodeSearch’ functions to search for the passcode. Note, if your student ID contains ‘0’s, use next non-zero numbers.*/
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Jay Popat	22346566	22/11/2022
 #include <stdio.h>
 #include <math.h> //gives access to math library functions such as the 'ceil' in this case

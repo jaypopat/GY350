@@ -7,7 +7,7 @@
 3. Next, search through each of the letters in each of the manufacturer names and check if the letter is uppercase. Print all uppercase letters to the screen. (30 marks)
 
 4. Finally, convert all letters in the array of strings to uppercase. Display the final list of car manufacturers to the screen. (20 marks)*/
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Name - Jay Popat		22346566			15/11/2022
 #include <stdio.h> 
 #include <ctype.h> 

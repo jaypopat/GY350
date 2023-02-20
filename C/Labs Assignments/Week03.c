@@ -6,7 +6,7 @@
 
 3. If the average weekly sales is less than €13,000, print a message to the user saying that sales are low. If the sales are between €13,000 and €20,000, print a message saying the sales are normal. If the sales are over €15,000, print a message saying that the sales are high.
 4. The average number of weekly customers is 230. Calculate the average spend per customer (Euro). Store this value as a float. Print the result to the screen.*/
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #include <stdio.h>
 void main() {
 	float week1 = 0;

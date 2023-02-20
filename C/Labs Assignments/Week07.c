@@ -5,7 +5,7 @@
 2. The user should then enter the required parameters to calculate the area of the chosen shape. Display the answer to the screen. Your programme should only calculate the area for correct, i.e. positive, shape dimensions, e.g., when width and height are > 0 for a rectangle. (33 marks)
 
 3. The user should be asked to enter another shape or type ‘Done’ to end. (33 marks)*/
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Jay Popat 22346566 08/11/2022
 #include <stdio.h>
 #include <string.h>
