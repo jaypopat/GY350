@@ -1,3 +1,12 @@
+/*Finish this C program by writing the missing functions based on the function prototypes
+given. Include screenshots showing your code working.
+1. void getCustomerName(customer* cptr); (20 marks)
+2. void getAccountNumber(customer* cptr); (20 marks)
+3. void getLastTransDate(customer* cptr); (20 marks)
+4. void getBalance(customer* cptr); (20 marks)
+5. void printCustomer(customer* cptr); (20 marks)
+*/
+
 #include <stdio.h>
 
 typedef struct

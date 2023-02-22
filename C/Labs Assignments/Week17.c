@@ -1,3 +1,17 @@
+/*Write a C program that does the following. You should test each of your functions in main().
+Include screenshots showing your code working.
+1. Write a function to read in and print an array of doubles. The function should have
+the following prototype: void printDoubleArray(double* dp, int len); (20 marks)
+2. Write a function to read in two integer pointers. The function should then swap the
+values of the integers that these pointers point to. Use the following function
+prototype: void swapIntegerValues(int* i1, int* i2); (20 marks)
+3. Write a function to square all of the values in an array of integers. Use the following
+function prototype: void squareIntArray(int* i1, int len); (20 marks)
+4. Write a function to print an array of integers backwards. Use the following function
+prototype: void printIntegerArrayBackwards(int* arr, int len); (20 marks)
+5. Write a function to print an array of random numbers between 0 and max. Use the
+following prototype: void randomIntArray(int* arr, int len, int max); (20 marks)*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "time.h"

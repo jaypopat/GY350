@@ -1,7 +1,19 @@
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
+/*Finish this C program by writing the missing functions based on the function prototypes
+given. Include screenshots showing your code working.
+1. void readCars(char myfilePath[], int numCars); [40 marks]
+a. Write a function to read in the car data from the .csv file provided and store
+it in the array “garage”.
+2. void displayGarage(int numCars); [30 marks]
+a. Write a function to display all of the cars stored in “garage”.
+3. int checkYear(int numCars, int year); [30 marks]
+a. Write a function to count how many cars in the garage are from a specific
+year, e.g. 2016.
+*/
 
+//csv file contents at EOF
 //Declaring the functions that will be used in the program.
 void readCars(char myfilePath[], int numCars);
 void displayGarage(int numCars);
@@ -81,5 +93,17 @@ int checkYear(int numCars, int year){
     }
     return counter;
 }
+//csv file
+/*Toyota Corolla,2004
+Audi A4,2011
+Mini Cooper,2020
+Honda Civic,2018
+Toyota Yaris,2016
+Hyundai Tucson,2020
+Volkswagen Golf,2013
+Volkswagen Polo,2016
+Audi A3,2009
+Mazda 3,2016
+*/
 
 
