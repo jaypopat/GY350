@@ -14,6 +14,10 @@ year, e.g. 2016.
 */
 
 //csv file contents at EOF
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+
 //Declaring the functions that will be used in the program.
 void readCars(char myfilePath[], int numCars);
 void displayGarage(int numCars);
@@ -26,7 +30,6 @@ typedef struct {
 }car;
 car garage[10]; // contains 10 car structures
 
-int checkYear(int numCars, int year);
 
 //The function reads the data from the file and stores it in the struct array using the function readCars()
 int main()
@@ -39,10 +42,10 @@ int main()
 
 }
 //The function reads the data from the file and stores it in the struct array
-void readCars(char myfilePath[], int numCars){
+void readCars(char myfilePath[], int numCars)
+{
     FILE * csvPtr;
     //Declaring a variable of type car.
-    car c;
     int count = 0;
     char data[50];
     //Opening the file and assigning the file pointer to csvPtr.
@@ -51,7 +54,8 @@ void readCars(char myfilePath[], int numCars){
         printf("no file");
         return;
     }
-    else{
+    else
+    {
         //Reading the data from the file and storing it in the struct array using parsing function strtok
         while(!feof(csvPtr) && count<numCars){
             car c;
@@ -68,10 +72,10 @@ void readCars(char myfilePath[], int numCars){
     }
 }
 
-
 //This function displays the cars in the garage
 
-void displayGarage(int numCars){
+void displayGarage(int numCars)
+{
     printf("---Cars in Garage---\n");
     for (int i = 0; i < numCars; i++) {
         printf("Car %d\nCar make: %s\n", i+1,garage[i].make);
@@ -85,14 +89,17 @@ void displayGarage(int numCars){
 It takes the number of cars in the garage and the year of the car as parameters and returns the
 number of cars in the garage that were made in that year
  */
-int checkYear(int numCars, int year){
+int checkYear(int numCars, int year)
+{
     int counter =0;
     for (int i = 0; i < numCars; ++i) {
-    if (year == garage[i].year){
-        counter++;}
+        if (year == garage[i].year){
+            counter++;}
     }
     return counter;
 }
+
+
 //csv file
 /*Toyota Corolla,2004
 Audi A4,2011
