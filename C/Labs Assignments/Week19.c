@@ -14,10 +14,6 @@ year, e.g. 2016.
 */
 
 //csv file contents at EOF
-#include "stdio.h"
-#include "string.h"
-#include "stdlib.h"
-
 //Declaring the functions that will be used in the program.
 void readCars(char myfilePath[], int numCars);
 void displayGarage(int numCars);
