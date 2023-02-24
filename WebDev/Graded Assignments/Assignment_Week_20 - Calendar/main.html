@@ -18,7 +18,7 @@
           day = myDate.getDate();
           console.log(day);
     
-          if (numDays > 31 || dayOfWeek > 6) {
+          if (numDays > 31 || numDays<0 || dayOfWeek > 6||dayOfWeek<0) {
             alert("Inputs are invalid -- try again");
           } 
           else {
