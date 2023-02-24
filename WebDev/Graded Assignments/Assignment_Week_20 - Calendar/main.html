@@ -1,0 +1,85 @@
+<html>
+<!--
+    the program allows you to enter values again if valid but needs to be reloaded to get a different calendar.
+    Jay Popat 22346566
+-->
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Calendar Assignment</title>
+    <script> 
+        var numDays, dayOfWeek, day;
+        var numbersArray = [];
+        function main() {
+          numDays = parseInt(document.getElementById("numDays").value);
+          dayOfWeek = parseInt(document.getElementById("dayOfWeek").value);
+          console.log(numDays);
+          console.log(dayOfWeek);
+          var myDate = new Date();
+          day = myDate.getDate();
+          console.log(day);
+    
+          if (numDays > 31 || dayOfWeek > 6) {
+            alert("Inputs are invalid -- try again");
+          } 
+          else {
+            for (let i = 1; i <= numDays; i++) {
+              numbersArray.push(i);
+            }
+            numbersArray.splice(numDays);
+            
+            for (let i = 1; i <= dayOfWeek; i++) {
+              numbersArray.unshift("");
+            }
+            console.log(numbersArray);
+            var tHeader =
+              "<tr><th>Sun</th><th>Mon</th><th>Tues</th><th>Wed</th><th>Thurs</th><th>Fri</th><th>Sat</th></tr>";
+            var txt = "<table>" + tHeader + "<tr>";
+    
+            for (let i = 0; i < numbersArray.length; i++) 
+            {
+              if (i % 7 == 0) {
+                txt += "</tr><tr>";
+              }
+              if (numbersArray[i] === day) {
+                txt += "<td id = 'day'>" + numbersArray[i] + "</td>";
+              } 
+              else if (numbersArray[i] === "") {
+                txt += "<td class = 'emptycells'></td>";
+              } 
+              else {
+                txt += "<td>" + numbersArray[i] + "</td>";
+              }
+            }
+            if (numbersArray.length % 7 !== 0) 
+            {
+              const cellsToAdd = 7 - (numbersArray.length % 7);
+              for (let i = 0; i < cellsToAdd; i++) {
+                txt += "<td class = 'emptycells'></td>";
+              }
+            }
+            txt += "</tr></table>";
+            document.getElementById("table").innerHTML = txt;
+            hideButton();
+          }
+          
+        }
+        function hideButton(){
+            document.getElementById("btn").style.display = "none";
+        }
+      </script>
+  </head>
+  <body>
+    <div id="userinput">
+      <form>
+        <label for="numDays">Number of Days in the Month: </label><br />
+        <input type="number" id="numDays" name="numDays" /><br />
+        <label for="dayOfWeek"
+          >The day of the week (0-6) that the 1st of the month falls on:</label
+        ><br />
+        <input type="number" id="dayOfWeek" name="dayOfWeek" /><br />
+      </form>
+      <button id = "btn" onclick="main();">Submit</button>
+    </div>
+    <p id="table"></p>
+  </body>
+</html>
