@@ -8,7 +8,7 @@
     <title>Calendar Assignment</title>
     <script> 
         var numDays, dayOfWeek, day;
-        var numbersArray = [];
+        var datesArray = [];
         function main() {
           numDays = parseInt(document.getElementById("numDays").value);
           dayOfWeek = parseInt(document.getElementById("dayOfWeek").value);
@@ -23,37 +23,37 @@
           } 
           else {
             for (let i = 1; i <= numDays; i++) {
-              numbersArray.push(i);
+              datesArray.push(i);
             }
-            numbersArray.splice(numDays);
+            datesArray.splice(numDays);
             
             for (let i = 1; i <= dayOfWeek; i++) {
-              numbersArray.unshift("");
+              datesArray.unshift("");
             }
-            console.log(numbersArray);
+            console.log(datesArray);
             var tHeader =
               "<tr><th>Sun</th><th>Mon</th><th>Tues</th><th>Wed</th><th>Thurs</th><th>Fri</th><th>Sat</th></tr>";
             var txt = "<table>" + tHeader + "<tr>";
     
-            for (let i = 0; i < numbersArray.length; i++) 
+            for (let i = 0; i < datesArray.length; i++) 
             {
               if (i % 7 == 0) {
                 txt += "</tr><tr>";
               }
-              if (numbersArray[i] === day) {
-                txt += "<td id = 'day'>" + numbersArray[i] + "</td>";
+              if (datesArray[i] === day) {
+                txt += "<td id = 'day'>" + datesArray[i] + "</td>";
               } 
-              else if (numbersArray[i] === "") {
+              else if (datesArray[i] === "") {
                 txt += "<td class = 'emptycells'></td>";
               } 
               else {
-                txt += "<td>" + numbersArray[i] + "</td>";
+                txt += "<td>" + datesArray[i] + "</td>";
               }
             }
-            if (numbersArray.length % 7 !== 0) 
+            if (datesArray.length % 7 !== 0) 
             {
-              const cellsToAdd = 7 - (numbersArray.length % 7);
-              for (let i = 0; i < cellsToAdd; i++) {
+              var EmptyCellsToBeAdded = 7 - (datesArray.length % 7);
+              for (let i = 0; i < EmptyCellsToBeAdded; i++) {
                 txt += "<td class = 'emptycells'></td>";
               }
             }
@@ -61,7 +61,6 @@
             document.getElementById("table").innerHTML = txt;
             hideButton();
           }
-          
         }
         function hideButton(){
             document.getElementById("btn").style.display = "none";
