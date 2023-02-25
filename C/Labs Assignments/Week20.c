@@ -3,94 +3,73 @@
 #include "time.h"
 #include "stdlib.h"
 
-char dictionary[10000][50];
-char filteredDict[10000][50];
-char randomWord[8];
-char guess[8];
+#define MAXWORDS 100000
+#define MAXSTRING 100
 
-int main()
-{
-    FILE *fptr;
+char dict[MAXWORDS][MAXSTRING];
+char filteredDict[100000][50];
+char randomWord[8];
+char wordDisplayed[8];
+char randomWord[8];
+char wordLetter;
+
+
+int main() {
+    FILE* file_ptr;
     int running = 1;
-    int i =0;
-    int j=0;
-    fptr = fopen("C:\\Users\\email\\Desktop\\dict.txt", "r");
-    if (fptr == NULL)
-    {
-        puts("Error Opening File");
+    int word = 0;
+    fopen_s(&file_ptr, "C:\\Users\\email\\Desktop\\dict.txt", "r");
+
+    if (file_ptr == NULL) {
+        printf("Could not open dictionary.txt");
         return 1;
     }
-    while(!feof(fptr))
-    {
-        char c = fgetc(fptr);
-        if (c == '\n')
-        {
-            dictionary[i][j]='\0';
-            i++;j=0;
-        }
-        else
-        {
-            dictionary[i][j]= c;
-            j++;
-        }
 
+    char txt[MAXSTRING];
+    while (fgets(txt, MAXSTRING - 1, file_ptr) != NULL) {
+        txt[strlen(txt) - 1] = '\0';
+        strcpy_s(dict[word], 100, txt);
+        word++;
     }
-    fclose(fptr);
-    for ( i = 0; i < 10000; i++)
-    {
-        for ( j = 0; j < 50; j++)
-        {
-            if (dictionary[i][j] == '\0')
-                break;
+    printf("dictionary.txt contained %d lines.\n", word);
+    fclose(file_ptr);
 
-            printf("%c", dictionary[i][j]);
-        }
-        printf("\n");
-    }
-
-    // after debugging -> found out strlen doesnt work --> strings are not null terminated which is why have to 
-    // manually add it with code above but each word_token is parsed and separated using a newline
-
-    char *word_token = strtok(dictionary[0], "\n");
     int num_filteredWords=0;
-    while (word_token != NULL)
-    {
-        if (strlen(word_token) >= 4 && strlen(word_token) <= 7)
+    for (int j = 0; j <word ; ++j) {
+        if (strlen(dict[j]) >= 4 && strlen(dict[j]) <= 7)
         {
-            strcpy(filteredDict[num_filteredWords], word_token);
+            strcpy(filteredDict[num_filteredWords], dict[j]);
             num_filteredWords++;
         }
-        word_token = strtok(NULL, "\n");
     }
-    printf("%d", num_filteredWords);
-
-    for (i = 0; i < num_filteredWords; i++)
-    {
-        for (j = 0; filteredDict[i][j] != '\0'; j++)
-        {
-            printf("%c", filteredDict[i][j]);
-        }
-        printf("\n");
-    }
-
+    printf("filtered dictionary contains %d words\n",num_filteredWords);
     srand(time(NULL));
     strcpy(randomWord,filteredDict[rand() % num_filteredWords]); // random word assigned
-    printf("%s", randomWord);
+    printf("%s\n", randomWord);
 
     int num_guesses=0;
     do {
+        for (int i = 0; i < strlen(randomWord); ++i) {
+            if (wordDisplayed[i] == '\0') {
+                wordDisplayed[i] = '-';
+            }
+        }
+
         num_guesses++;
-        printf("Guess %d. Enter answer: ", num_guesses);
-        scanf("%s", guess);
-        if (strcmp(randomWord, guess) == 0)
+        printf("Guess %d. \n%s \n", num_guesses,wordDisplayed);
+        printf("Enter letter: ");
+        scanf(" %c",&wordLetter);
+        for (int i = 0; i < strlen(randomWord); ++i) {
+            if (randomWord[i]==wordLetter){
+                wordDisplayed[i] = wordLetter;
+            }
+        }
+        if (strcmp(randomWord, wordDisplayed) == 0)
         {
             printf("You won!\n");
+            printf("It took you %d guesses to find %s",num_guesses,randomWord);
             running = 0;
         }
-        else
-        {
-            printf("Wrong answer, try again.\n");
-        }
     } while (running);
-    return 0;
+
 }
