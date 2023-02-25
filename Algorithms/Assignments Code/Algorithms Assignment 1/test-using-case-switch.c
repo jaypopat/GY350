@@ -44,7 +44,13 @@ int main()
 
     int sortingMethodInput;
     do {
-        printf("Enter a number from 1 to 4 (or -1 to exit): ");
+        printf("Choose the sorting technique:\n");
+        printf("1. Insertion Sort\n");
+        printf("2. Selection Sort\n");
+        printf("3. Count Sort\n");
+        printf("4. Bubble Sort\n");
+        printf("-1. Exit\n");
+
         scanf("%d", &sortingMethodInput);
 
         switch(sortingMethodInput)
