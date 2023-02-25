@@ -50,7 +50,9 @@ int main() {
     int num_guesses=0;
     do {
         for (int i = 0; i < strlen(randomWord); ++i) {
-            if (wordDisplayed[i] == '\0') {
+            if (wordDisplayed[i] == '\0') { 
+                // --> all chars in the empty character array are /0 hence we can use this to populate the char 
+                // array with dashes as required in the UI..
                 wordDisplayed[i] = '-';
             }
         }
