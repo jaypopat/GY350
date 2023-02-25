@@ -8,7 +8,6 @@
 
 char dict[MAXWORDS][MAXSTRING];
 char filteredDict[100000][50];
-char randomWord[8];
 char wordDisplayed[8];
 char randomWord[8];
 char wordLetter;
