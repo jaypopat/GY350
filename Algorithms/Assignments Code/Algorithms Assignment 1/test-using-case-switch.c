@@ -7,17 +7,16 @@ void selectionSort(int arrA[], int size);
 void countSortRange(int[], int, int, int);
 void bubbleSort(int arrA[], int size);
 
-/*case statements were used to print out only one sorting algorithm at a time as my compiler wasn't able to print out
-all of them at once*/
 #define SIZE 5000
+
 int main()
 {
     int i;
     clock_t start, end;
-    int sortedNumsArray[SIZE], unsortedNumsArray[SIZE];
+    int sortedNumsArray[SIZE], unsortedNumsArray[SIZE], originalUnsortedNumsArray[SIZE];
 
     // read first file into sortedNumsArray
-    FILE* ptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\Labs Week 18\\sortedNums.txt", "r");
+    FILE* ptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\L19\\sorted.txt", "r");
     if (ptr == NULL)
     {
         printf("Error opening sortedNums.txt\n");
@@ -30,7 +29,7 @@ int main()
     fclose(ptr);
 
     // read second file into Unsorted Array
-    ptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\Labs Week 18\\unsortedNums.txt", "r");
+    ptr = fopen("C:\\Users\\email\\Desktop\\GY350\\Coding in C\\C-Lion Projects\\L19\\unsorted.txt", "r");
     if (ptr == NULL)
     {
         printf("Error opening unsortedNums.txt\n");
@@ -39,6 +38,7 @@ int main()
     for (i = 0; i < SIZE; i++)
     {
         fscanf(ptr, "%d", &unsortedNumsArray[i]);
+        originalUnsortedNumsArray[i] = unsortedNumsArray[i]; // create a copy of the unsorted array
     }
     fclose(ptr);
 
@@ -61,13 +61,17 @@ int main()
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
 
-                // sort Unsorted Array using insertion sort and print sorted array
                 start = clock();
-                insertionSort(unsortedNumsArray, SIZE);
+                int insertionSortArray[SIZE];
+                for (i = 0; i < SIZE; i++)
+                {
+                    insertionSortArray[i] = originalUnsortedNumsArray[i];
+                }
+                insertionSort(insertionSortArray, SIZE);
                 end = clock();
                 printf("Unsorted Array sorted using Insertion Sort:\n");
                 for (i = 0; i < SIZE; i++) {
-                    printf("%d ", unsortedNumsArray[i]);
+                    printf("%d ", insertionSortArray[i]);
                 }
                 printf("\n");
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
@@ -86,19 +90,23 @@ int main()
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
 
-                // sort Unsorted Array using selection sort and print sorted array
                 start = clock();
-                selectionSort(unsortedNumsArray, SIZE);
+                int selectionSortArray[SIZE];
+                for (i = 0; i < SIZE; i++)
+                {
+                    selectionSortArray[i] = originalUnsortedNumsArray[i];
+                }
+                selectionSort(selectionSortArray, SIZE);
                 end = clock();
                 printf("Unsorted Array sorted using Selection Sort:\n");
                 for (i = 0; i < SIZE; i++) {
-                    printf("%d ", unsortedNumsArray[i]);
+                    printf("%d ", selectionSortArray[i]);
                 }
                 printf("\n");
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
                 break;
-                // sort Sorted Array using bubble sort and print sorted array
+
             case 3:
                 start = clock();
                 countSortRange(sortedNumsArray, SIZE, -100,100);
@@ -111,18 +119,24 @@ int main()
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
 
-                // sort Unsorted Array using count sort and print sorted array
+
                 start = clock();
-                countSortRange(unsortedNumsArray, SIZE, -100,100);
+                int countSortArray[SIZE];
+                for (i = 0; i < SIZE; i++)
+                {
+                    countSortArray[i] = originalUnsortedNumsArray[i];
+                }
+                countSortRange(countSortArray, SIZE, 0, 9999);
                 end = clock();
                 printf("Unsorted Array sorted using Count Sort:\n");
                 for (i = 0; i < SIZE; i++) {
-                    printf("%d ", unsortedNumsArray[i]);
+                    printf("%d ", countSortArray[i]);
                 }
                 printf("\n");
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
                 break;
+
             case 4:
                 start = clock();
                 bubbleSort(sortedNumsArray, SIZE);
@@ -134,20 +148,23 @@ int main()
                 printf("\n");
                 printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
-                // sort Unsorted Array using bubble
 
-                // sort Unsorted Array using bubble sort and print sorted array
                 start = clock();
-                bubbleSort(unsortedNumsArray, SIZE);
+                int bubbleSortArray[SIZE];
+                for (i = 0; i < SIZE; i++)
+                {
+                    bubbleSortArray[i] = originalUnsortedNumsArray[i];
+                }
+                bubbleSort(bubbleSortArray, SIZE);
                 end = clock();
                 printf("Unsorted Array sorted using Bubble Sort:\n");
                 for (i = 0; i < SIZE; i++) {
-                    printf("%d ", unsortedNumsArray[i]);
+                    printf("%d ", bubbleSortArray[i]);
                 }
-                printf("\nTime taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
+                printf("\n");
+                printf("Time taken: %.5f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
                 printf("\n");
                 break;
-
         }
     }while (sortingMethodInput!=-1);
     return 0;
@@ -157,8 +174,6 @@ void countSortRange(int arrA[], int size, int minVal, int maxVal)
 {
 
     int i, value, count;
-    int numSwaps = 0;
-    int numComparisons = 0;
     int freqSize = maxVal - minVal + 1;
 
     int* freq = (int*)malloc(freqSize * sizeof(int));   //create freq[]
