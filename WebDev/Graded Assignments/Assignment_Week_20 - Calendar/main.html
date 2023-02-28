@@ -18,15 +18,13 @@
           day = myDate.getDate();
           console.log(day);
     
-          if (numDays > 31 || numDays<0 || dayOfWeek > 6||dayOfWeek<0) {
+          if (/*numDays > 31 || */numDays<0 || dayOfWeek > 6||dayOfWeek<0) {
             alert("Inputs are invalid -- try again");
           } 
           else {
             for (let i = 1; i <= numDays; i++) {
               datesArray.push(i);
-            }
-            datesArray.splice(numDays);
-            
+            }            
             for (let i = 1; i <= dayOfWeek; i++) {
               datesArray.unshift("");
             }
@@ -57,7 +55,7 @@
                 txt += "<td class = 'emptycells'></td>";
               }
             }
-            txt += "</tr></table>";
+            txt += "</tr></table>"; 
             document.getElementById("table").innerHTML = txt;
             hideButton();
           }
