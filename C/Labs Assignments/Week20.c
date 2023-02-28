@@ -41,7 +41,7 @@ int main() {
             num_filteredWords++;
         }
     }
-    printf("filtered dictionary contains %d words\n",num_filteredWords);
+    printf("Loaded %d suitable words from the dictionary.\n",num_filteredWords);
     srand(time(NULL));
     strcpy(randomWord,filteredDict[rand() % num_filteredWords]); // random word assigned
     printf("%s\n", randomWord);
@@ -58,7 +58,7 @@ int main() {
 
         num_guesses++;
         printf("Guess %d. \n%s \n", num_guesses,wordDisplayed);
-        printf("Enter letter: ");
+        printf("Guess a letter >  ");
         scanf(" %c",&wordLetter);
         for (int i = 0; i < strlen(randomWord); ++i) {
             if (randomWord[i]==wordLetter){
@@ -67,8 +67,8 @@ int main() {
         }
         if (strcmp(randomWord, wordDisplayed) == 0)
         {
-            printf("You won!\n");
-            printf("It took you %d guesses to find %s",num_guesses,randomWord);
+            printf("\n");
+            printf("Well done, that took you %d guesses to find %s!",num_guesses,randomWord);
             running = 0;
         }
     } while (running);
