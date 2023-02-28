@@ -15,8 +15,12 @@ possible (a politically incorrect person might call the game 'Hangman')
 #include "time.h"
 #include "stdlib.h"
 
+int filterWords(int numWords);
+int loadDictionary(char *filePath);
+
 #define MAXWORDS 100000
 #define MAXSTRING 100
+
 
 char dict[MAXWORDS][MAXSTRING];
 char filteredDict[100000][50];
@@ -24,52 +28,64 @@ char wordDisplayed[8];
 char randomWord[8];
 char wordLetter;
 
-
-int main() {
+int loadDictionary(char *filePath){
+    //This is reading the dictionary file and storing each word in the array dict.
     FILE* file_ptr;
-    int running = 1;
-    int word = 0;
-    fopen_s(&file_ptr, "C:\\Users\\email\\Desktop\\dict.txt", "r");
-
+    int word =0;
+    fopen_s(&file_ptr, filePath, "r");
     if (file_ptr == NULL) {
         printf("Could not open dictionary.txt");
         return 1;
     }
-
-   /* This is reading the dictionary file and storing each word in the array dict. */
     char txt[MAXSTRING];
     while (fgets(txt, MAXSTRING - 1, file_ptr) != NULL) {
         txt[strlen(txt) - 1] = '\0';
         strcpy(dict[word], txt);
         word++;
     }
-    printf("dictionary.txt contained %d lines.\n", word);
     fclose(file_ptr);
-
+    return word;
+}
+int filterWords(int numWords){
     /* This is filtering the dictionary file to only contain words that are between 4 and 7 characters
     long. */
     int num_filteredWords=0;
-    for (int j = 0; j <word ; ++j) {
+    for (int j = 0; j <numWords ; ++j) 
+    {
         if (strlen(dict[j]) >= 4 && strlen(dict[j]) <= 7)
         {
             strcpy(filteredDict[num_filteredWords], dict[j]);
             num_filteredWords++;
         }
     }
-    printf("Loaded %d suitable words from the dictionary.\n",num_filteredWords);
+    return num_filteredWords;
+}
+
+int main() {
+    
     srand(time(NULL));
+    int running = 1;
+    loadDictionary("C:\\Users\\email\\Desktop\\dict.txt");
+    int words = loadDictionary("C:\\Users\\email\\Desktop\\dict.txt");
+    printf("dictionary.txt contained %d lines.\n", words);
+
+    int num_filteredWords = filterWords(words);
+    printf("Loaded %d suitable words from the dictionary.\n",num_filteredWords);
     strcpy(randomWord,filteredDict[rand() % num_filteredWords]); // random word assigned
+    
     printf("Do you want to reveal the random word? Answer with 'Y or 'N': "); // used for testing purposes
     char revealInput;
     scanf("%c",&revealInput);
     if (revealInput == 'Y'){
         printf("%s\n", randomWord);
     }
+    
     int num_guesses=0;
 /* This is the main game loop. It is responsible for displaying the word to the user, asking for a
 letter and checking if the letter is in the word. */
     do {
-        for (int i = 0; i < strlen(randomWord); ++i) {
+        for (int i = 0; i < strlen(randomWord); ++i) 
+        {
             if (wordDisplayed[i] == '\0') {
                 // --> all chars in the empty character array are \0 hence we can use this to populate the char
                 // array with dashes as required in the UI
@@ -80,7 +96,8 @@ letter and checking if the letter is in the word. */
         printf("\nGuess %d. \n%s \n", num_guesses,wordDisplayed);
         printf("Guess a letter >  ");
         scanf(" %c",&wordLetter);
-        for (int i = 0; i < strlen(randomWord); ++i) {
+        for (int i = 0; i < strlen(randomWord); ++i) 
+        {
             if (randomWord[i]==wordLetter){
                 wordDisplayed[i] = wordLetter;
             }
