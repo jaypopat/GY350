@@ -9,7 +9,7 @@
 4. Update your calculation of the average and total sales based on the new additional days of sales. Print both to the screen. (20 marks)
 
 5. Use a For loop to print out all sales values stored in your array. (20 marks)*/
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /*Name - Jay Popat
 Student ID = 22346566
 Date - 25/10/2022*/
