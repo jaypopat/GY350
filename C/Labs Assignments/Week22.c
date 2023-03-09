@@ -28,7 +28,6 @@ int main(int argCount, char *argStringValue[]) {
     }
     return 0;
 }
-
 int no_of_days(int year, int month) {
     if (month == 9 || month == 4 || month == 6 || month == 11)
         return 30;
