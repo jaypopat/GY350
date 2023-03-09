@@ -58,6 +58,7 @@ int main(void)
     char board[3][3];
     char playerOption = 'X';
     int resultFound = 1;
+    int movesMade=0;
 
     initialiseBoard(board);
     drawBoard(board);
@@ -72,8 +73,13 @@ int main(void)
         }
         else {
             board[row][col] = playerOption;
+            movesMade++;
             if (PlayerWinDetector(board, playerOption)) {
                 printf("%c wins!\n", playerOption);
+                resultFound = 0;
+            }
+            else if (movesMade == 9) {
+                printf("It's a draw!\n");
                 resultFound = 0;
             }
             drawBoard(board);

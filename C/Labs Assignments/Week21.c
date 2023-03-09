@@ -1,31 +1,18 @@
-/*Graded Assignment: Flesch Readability Index
-• Write a program which reads all the text in a file and computes the Flesch Readability Index for it.
-• The Flesch Readability Index was invented as a simple tool for determining the legibility of a
-document without linguistic analysis. It may be implemented using the following 4 steps:
-1. Count all words. A word is any sequence of characters delimited by white space.
-2. Count all syllables in each word. Each group of adjacent vowels (a, e, i, o, u, y) counts as one
-syllable (for example, the "ea" in "real" contributes one syllable, but the "e..a" in "regal" counts
-as two syllables). However, an "e" at the end of a word doesn't count as a syllable. Also, each
-word has at least one syllable, even if the previous rules give a count of 0.
-3. Count all sentences. A sentence is ended by a full stop, colon, semicolon, question mark, or
-exclamation mark.
-4. The index is computed by the following formula:*/
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-int indexCalculator();
-
 char alltext[200000];
-char duplicatedText[200000];
+char Second_alltext[200000];
 char oneline[1000];
+char Second_oneline[1000];
+
+int syllableCounter(char* wordToken);
+void indexCalculator(char articleText[]);
 
 int main() {
     FILE *file_ptr;
     fopen_s(&file_ptr, "C:\\Users\\email\\Desktop\\article-irish-times.txt", "r");
-    int word = 0;
-    int sentence = 0;
 
     if (file_ptr == NULL) {
         printf("Could not open article\n");
@@ -35,36 +22,91 @@ int main() {
             // read the next line and append it (with \n intact)
             strcat(alltext, oneline);
         }
-        printf("%s", alltext);
         fclose(file_ptr);
     }
-    printf("\n------------------------\n");
-    
-    indexCalculator(); // do this for two text files
-}
 
-int indexCalculator(){
-    int word = 0;
-    int sentence = 0;
-    char *wordToken = strtok(alltext," ");
-    //printf("%s",token);
-    while (wordToken!=NULL){
-        //printf("%s ",token); prints the text again
-        wordToken = strtok(NULL," ");
-        word++;
-    }
-    printf("%d words",word);
+    printf("Flesh Readability Index");
     printf("\n------------------------\n");
-    strcpy(duplicatedText, alltext);
-    char sentenceDelims[] = ".:;?!";
-    char *sentenceToken = strtok(alltext,sentenceDelims);
-    //printf("%s",token);
-    while (sentenceToken!=NULL){
-        //printf("%s ",token); prints the text again
-        sentenceToken = strtok(NULL,sentenceDelims);
-        sentence++;
+
+    fopen_s(&file_ptr, "C:\\Users\\email\\Desktop\\article-green-eggs-and-ham.txt", "r");
+
+    if (file_ptr == NULL) {
+        printf("Could not open article\n");
+    } else {
+        Second_alltext[0] = '\0'; // make sure this string is empty
+        while (fgets(Second_oneline, 999, file_ptr) != NULL) {
+            // read the next line and append it (with \n intact)
+            strcat(Second_alltext, Second_oneline);
+        }
+        fclose(file_ptr);
     }
-    printf("%d sentences",sentence);
+
+    indexCalculator(alltext);
+    printf("\n------------------------\n");
+    indexCalculator(Second_alltext);
+
     return 0;
 }
 
+int syllableCounter(char* wordToken){
+    int syllables = 0;
+    int vowelsInARow =0;
+
+    int wordTokenLen = strlen(wordToken);
+    /* Counting the syllables in a word. */
+    for (int i = 0; i < wordTokenLen; i++) {
+        char c = tolower(wordToken[i]);
+        // word = roach --> used for testing
+        //char next_c = tolower(wordToken[i+1]);
+        
+        /* This is checking if the character is a vowel. If it is, it will increment the syllables. */
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y') {
+            if (vowelsInARow == 0) {
+                syllables++;
+            }
+            vowelsInARow++;
+        } else {
+            vowelsInARow = 0;
+        }
+        /* This is checking if the last character of the word is an 'e' and if the syllables is greater
+        than 1. If it is, it will decrement the syllables. */
+        if (i == wordTokenLen - 1 && c == 'e' && syllables > 1) {
+            syllables--;
+        }
+    }
+    /* Checking if the syllables is 0. If it is, it will set the syllable value to 1 */
+    if (syllables == 0) {
+        syllables = 1;
+    }
+    return syllables;
+}
+
+void indexCalculator(char articleText[]) {
+    int sentence = 0;
+    int syllables;
+    int wordCounter = 0;
+    int syllableCount = 0;
+
+    /* This is a loop that is going through the articleText and counting the syllables in each word. */
+    char *word = strtok(articleText, " ");
+    while (word != NULL) {
+        syllables = syllableCounter(word);
+        syllableCount += syllables;
+        word = strtok(NULL, " ");
+        wordCounter++;
+
+        /* This is checking if the last character of the word is a full stop, exclamation mark or question
+        mark. If it is, it will increment the sentence counter. */
+        char lastCharofToken = word[strlen(word) - 1];
+        if (lastCharofToken == '.' || lastCharofToken == '!' || lastCharofToken == '?') {
+            sentence++;
+        }
+    }
+    printf("%d words\n", wordCounter);
+    printf("%d sentences\n", sentence);
+    printf("%d syllables\n", syllableCount);
+
+    /* This is calculating the Flesch Readability Index*/
+    float index = 206.835 - 84.6 * (syllableCount / wordCounter) - (1.015 * (wordCounter / sentence));
+    printf("%.3f", index);
+}

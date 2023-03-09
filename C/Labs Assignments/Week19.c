@@ -1,110 +1,113 @@
-#include "stdio.h"
-#include "string.h"
+/*Lab Assignment: Word guessing game
+• Write a C program which reads the supplied dictionary file into an
+array of strings (make sure the array is big enough for all the words..
+100000 is plenty)
+• The program should reject words from the file which have less than 4
+or more then 7 letters
+• It should then randomly pick a word and the user must guess letters
+in the word and try to get the whole word in as few guesses as
+possible (a politically incorrect person might call the game 'Hangman')
+• Make appropriate use of functions
+• For required output, see next slide*/
+
+#include <stdio.h>
+#include <string.h>
+#include "time.h"
 #include "stdlib.h"
-/*Finish this C program by writing the missing functions based on the function prototypes
-given. Include screenshots showing your code working.
-1. void readCars(char myfilePath[], int numCars); [40 marks]
-a. Write a function to read in the car data from the .csv file provided and store
-it in the array “garage”.
-2. void displayGarage(int numCars); [30 marks]
-a. Write a function to display all of the cars stored in “garage”.
-3. int checkYear(int numCars, int year); [30 marks]
-a. Write a function to count how many cars in the garage are from a specific
-year, e.g. 2016.
-*/
 
-//csv file contents at EOF
-//Declaring the functions that will be used in the program.
-void readCars(char myfilePath[], int numCars);
-void displayGarage(int numCars);
-int checkYear(int numCars, int year);
+int filterWords(int numWords);
+int loadDictionary(char *filePath);
 
-typedef struct {
-    char make[20];
-    char model[20];
-    int year;
-}car;
-car garage[10]; // contains 10 car structures
+#define MAXWORDS 100000
+#define MAXSTRING 100
 
 
-//The function reads the data from the file and stores it in the struct array using the function readCars()
-int main()
-{
-    char myfilePath[] = "C:\\Users\\email\\Desktop\\carsYear.csv";
-    readCars(myfilePath, 10);
-    displayGarage(10);
-    int ans = checkYear(10, 2016);
-    printf("There are %d cars with year %d in the garage.\n",ans,2016);
+char dict[MAXWORDS][MAXSTRING];
+char filteredDict[100000][50];
+char wordDisplayed[8];
+char randomWord[8];
+char wordLetter;
 
-}
-//The function reads the data from the file and stores it in the struct array
-void readCars(char myfilePath[], int numCars)
-{
-    FILE * csvPtr;
-    //Declaring a variable of type car.
-    int count = 0;
-    char data[50];
-    //Opening the file and assigning the file pointer to csvPtr.
-    fopen_s(&csvPtr,myfilePath,"r");
-    if (csvPtr==NULL){
-        printf("no file");
-        return;
+int loadDictionary(char *filePath){
+    //This is reading the dictionary file and storing each word in the array dict.
+    FILE* file_ptr;
+    int word =0;
+    fopen_s(&file_ptr, filePath, "r");
+    if (file_ptr == NULL) {
+        printf("Could not open dictionary.txt");
+        return 1;
     }
-    else
+    char txt[MAXSTRING];
+    while (fgets(txt, MAXSTRING - 1, file_ptr) != NULL) {
+        txt[strlen(txt) - 1] = '\0';
+        strcpy(dict[word], txt);
+        word++;
+    }
+    fclose(file_ptr);
+    return word;
+}
+int filterWords(int numWords){
+    /* This is filtering the dictionary file to only contain words that are between 4 and 7 characters
+    long. */
+    int num_filteredWords=0;
+    for (int j = 0; j <numWords ; ++j)
     {
-        //Reading the data from the file and storing it in the struct array using parsing function strtok
-        while(!feof(csvPtr) && count<numCars){
-            car c;
-            fgets(data, 50, csvPtr);
-            char *token = strtok(data, " ");
-            strcpy(c.make,token);
-            token = strtok(NULL, ",");
-            strcpy(c.model,token);
-            token = strtok(NULL, ",");
-            c.year = atoi(token);
-            garage[count]=c;
-            count++;
+        if (strlen(dict[j]) >= 4 && strlen(dict[j]) <= 7)
+        {
+            strcpy(filteredDict[num_filteredWords], dict[j]);
+            num_filteredWords++;
         }
     }
+    return num_filteredWords;
 }
 
-//This function displays the cars in the garage
+int main() {
 
-void displayGarage(int numCars)
-{
-    printf("---Cars in Garage---\n");
-    for (int i = 0; i < numCars; i++) {
-        printf("Car %d\nCar make: %s\n", i+1,garage[i].make);
-        printf("Car Model: %s\n", garage[i].model);
-        printf("Car Year: %d\n", garage[i].year);
-        printf("-----------");
-        printf("\n");
+    srand(time(NULL));
+    int running = 1;
+    loadDictionary("C:\\Users\\email\\Desktop\\dict.txt");
+    int words = loadDictionary("C:\\Users\\email\\Desktop\\dict.txt");
+    printf("dictionary.txt contained %d lines.\n", words);
+
+    int num_filteredWords = filterWords(words);
+    printf("Loaded %d suitable words from the dictionary.\n",num_filteredWords);
+    strcpy(randomWord,filteredDict[rand() % num_filteredWords]); // random word assigned
+
+    printf("Do you want to reveal the random word? Answer with 'Y or 'N': "); // used for testing purposes
+    char revealInput;
+    scanf("%c",&revealInput);
+    if (revealInput == 'Y'){
+        printf("%s\n", randomWord);
     }
-}
-/*
-It takes the number of cars in the garage and the year of the car as parameters and returns the
-number of cars in the garage that were made in that year
- */
-int checkYear(int numCars, int year)
-{
-    int counter =0;
-    for (int i = 0; i < numCars; ++i) {
-        if (year == garage[i].year){
-            counter++;}
-    }
-    return counter;
-}
 
-
-//csv file
-/*Toyota Corolla,2004
-Audi A4,2011
-Mini Cooper,2020
-Honda Civic,2018
-Toyota Yaris,2016
-Hyundai Tucson,2020
-Volkswagen Golf,2013
-Volkswagen Polo,2016
-Audi A3,2009
-Mazda 3,2016
-*/
+    int num_guesses=0;
+/* This is the main game loop. It is responsible for displaying the word to the user, asking for a
+letter and checking if the letter is in the word. */
+    do {
+        for (int i = 0; i < strlen(randomWord); ++i)
+        {
+            if (wordDisplayed[i] == '\0') {
+                // --> all chars in the empty character array are \0 hence we can use this to populate the char
+                // array with dashes as required in the UI
+                wordDisplayed[i] = '-';
+            }
+        }
+        num_guesses++;
+        printf("\nGuess %d. \n%s \n", num_guesses,wordDisplayed);
+        printf("Guess a letter >  ");
+        scanf(" %c",&wordLetter);
+        for (int i = 0; i < strlen(randomWord); ++i)
+        {
+            if (randomWord[i]==wordLetter){
+                wordDisplayed[i] = wordLetter;
+            }
+        }
+        if (strcmp(randomWord, wordDisplayed) == 0)
+        {
+            printf("\n");
+            printf("Well done, that took you %d guesses to find %s!",num_guesses,randomWord);
+            //Setting the value of the variable running to 0. This is used to exit the game loop.
+            running = 0;
+        }
+    } while (running);
+}

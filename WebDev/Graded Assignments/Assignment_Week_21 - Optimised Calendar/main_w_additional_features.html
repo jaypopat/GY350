@@ -1,0 +1,217 @@
+<html>
+  <head>
+    <title>Calendar</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body onload="updateClock();">
+    <p id="theClock">00:00:00</p>
+    <div id="userinput">
+      <form>
+        <label for="year">Enter a year number: </label><br />
+        <input type="number" id="year" name="year" /><br />
+        <label for="month">Enter a month number (1-12): </label><br />
+        <input type="number" id="month" name="month" /><br />
+      </form>
+      <button id="btn" onclick="curr()">Submit</button>
+    </div>
+    <p id="table"></p>
+    <p style="text-align: center" id="currMonthAndYear"></p>
+    <div id="adjacentMonths">
+      <button onclick="prev();" id="prevMonth">Previous Month</button>
+      <button onclick="curr();" id="currMonth">Current Month</button>
+      <button onclick="next();" id="nextMonth">Next Month</button>
+    </div>
+  </body>
+  <script>
+    var yearNum = document.getElementById("year").value;
+    var monthNum = document.getElementById("month").value;
+    function createCalendar(monthNum, yearNum) {
+      var myDate = new Date();
+      var day = myDate.getDate();
+      var monthforCell = myDate.getMonth();
+      var yearforCell = myDate.getFullYear();
+      var datesArray = [];
+      const daysInMonth = [
+        31,
+        28 + (yearNum % 4 == 0 && (yearNum % 100 != 0 || yearNum % 400 == 0)),
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+      ];
+      // this algorithm is used to create the number of unshifts to the array for the start of the month
+      // Days elapsed from January 1, 1900 to December 31 of the previous year
+      let daysElapsed =
+        (yearNum - 1900) * 365 + count_leap_years(1900,yearNum);
+        console.log(daysElapsed);
+
+      // Days elapsed from January 1 to the start of the given month
+      for (let i = 0; i < monthNum - 1; i++) {
+        daysElapsed += daysInMonth[i];
+      }
+      console.log(daysElapsed);
+      for (let i = 1; i <= daysInMonth[monthNum - 1]; i++) {
+        datesArray.push(i);
+      }
+      var dayOfWeek = (1 + daysElapsed) % 7;
+      for (let i = 1; i <= dayOfWeek; i++) {
+        datesArray.unshift("");
+      }
+      var tHeader =
+        "<tr><th>Sun</th><th>Mon</th><th>Tues</th><th>Wed</th><th>Thurs</th><th>Fri</th><th>Sat</th></tr>";
+      var txt = "<table>" + tHeader + "<tr>";
+
+      for (let i = 0; i < datesArray.length; i++) {
+        if (i % 7 == 0) {
+          txt += "</tr><tr>";
+        }
+        if (datesArray[i] === day && monthNum === ((monthforCell)+1) && yearNum === yearforCell) {
+          txt += "<td id = 'day'>" + datesArray[i] + "</td>";
+        } else if (datesArray[i] === "") {
+          txt += "<td class = 'emptycells'></td>";
+        } else {
+          txt += "<td>" + datesArray[i] + "</td>";
+        }
+      }
+      if (datesArray.length % 7 !== 0) {
+        var EmptyCellsToBeAdded = 7 - (datesArray.length % 7);
+        for (let i = 0; i < EmptyCellsToBeAdded; i++) {
+          txt += "<td class = 'emptycells'></td>";
+        }
+      }
+      txt += "</tr></table>";
+      document.getElementById("table").innerHTML = txt;
+      hideButton();
+      displayButton();
+    }
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    function curr() {
+      let yearNum = document.getElementById("year").value;
+      let monthNum = document.getElementById("month").value;
+      createCalendar(monthNum, yearNum);
+      document.getElementById("currMonthAndYear").innerHTML =
+        months[monthNum - 1] + " " + yearNum;
+    }
+    function next() {
+      let yearNum = parseInt(document.getElementById("year").value);
+      let monthNum = parseInt(document.getElementById("month").value) + 1;
+      if (monthNum > 12) {
+        yearNum++;
+        monthNum = 1;
+      }
+      document.getElementById("year").value = yearNum;
+      document.getElementById("month").value = monthNum;
+      createCalendar(monthNum, yearNum);
+      document.getElementById("currMonthAndYear").innerHTML =
+        months[monthNum - 1] + " " + yearNum;
+    }
+
+    function prev() {
+      let yearNum = parseInt(document.getElementById("year").value);
+      let monthNum = parseInt(document.getElementById("month").value) - 1;
+      if (monthNum < 1) {
+        yearNum--;
+        monthNum = 12;
+      }
+      document.getElementById("year").value = yearNum;
+      document.getElementById("month").value = monthNum;
+      createCalendar(monthNum, yearNum);
+      document.getElementById("currMonthAndYear").innerHTML =
+        months[monthNum - 1] + " " + yearNum;
+    }
+    function count_leap_years(start_year, end_year) {
+  let count = 0;
+  for (let year = start_year; year <= end_year; year++) {
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+      count++;
+    }
+  }
+  return count;
+}
+
+    function addLeadingZero(num) {
+      if (num < 10) {
+        return "0" + num;
+      }
+      return num;
+    }
+
+    function updateClock() {
+      window.setTimeout(updateClock, 1000);
+      var myDate = new Date();
+      const options = { weekday: "long" };
+      const dayName = myDate.toLocaleString("en-US", options);
+      var h = myDate.getHours();
+      var m = myDate.getMinutes();
+      var s = myDate.getSeconds();
+      var month = myDate.getMonth() + 1;
+      var day = myDate.getDate();
+      var year = myDate.getFullYear();
+      var text =
+        addLeadingZero(h) +
+        ":" +
+        addLeadingZero(m) +
+        ":" +
+        addLeadingZero(s) +
+        " " +
+        dayName +
+        "<br>" +
+        day +
+        "/" +
+        month +
+        "/" +
+        year;
+      document.getElementById("theClock").innerHTML = text;
+    }
+    function addLeadingZero(num) {
+      if (num < 10) {
+        return "0" + num;
+      }
+      return num;
+    }
+    function hideButton() {
+      document.getElementById("btn").style.display = "none";
+    }
+    function displayButton() {
+      document.getElementById("prevMonth").style.display = "block";
+      document.getElementById("nextMonth").style.display = "block";
+      document.getElementById("currMonth").style.display = "block";
+      const adjacentMonths = document.getElementById("adjacentMonths");
+      const buttons = adjacentMonths.getElementsByTagName("button");
+      // centering the div
+      adjacentMonths.style.display = "flex";
+      adjacentMonths.style.justifyContent = "center";
+      adjacentMonths.style.alignItems = "center";
+      // adding margin between the buttons
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = "inline-block";
+        buttons[i].style.marginRight = "10px";
+      }
+    }
+  </script>
+</html>
