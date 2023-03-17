@@ -1,0 +1,58 @@
+* {
+  font-family: "Source Code Pro", monospace;
+}
+table {
+  border: 2px solid #4f0000;
+  background-color: #ff4081;
+  color: #222222;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+th {
+  background-color: #ff6d00;
+  color: #ffffff;
+  text-align: left;
+  padding: 10px;
+  border: 2px solid #4f0000;
+}
+
+td {
+  border: 2px solid #4f0000;
+  padding: 10px;
+}
+
+input,
+select,
+button,
+textarea {
+  background-color: #d9a82b;
+  color: #222222;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #d9a82b;
+  color: #222222;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+body {
+  background-color: #222222;
+  color: #ffffff;
+}
+option{
+  background-color: #d9a82b;
+}
+

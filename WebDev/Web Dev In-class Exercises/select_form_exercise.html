@@ -1,0 +1,15 @@
+<html>
+  <script>
+    const main = () => {
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+      alert(months[document.getElementById("listlabel").selectedIndex]);};
+  </script>
+  <body>
+    <select name="listlabel" id="listlabel">
+      <option value="1">Jan</option>
+      <option value="2">Feb</option>
+      <option value="3">March</option>
+    </select>
+    <button onclick="main();">submit</button>
+  </body>
+</html>

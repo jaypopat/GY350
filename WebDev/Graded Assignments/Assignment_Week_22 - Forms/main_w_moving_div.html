@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div style="position: absolute; left: 800px; top: 100px" id="form">
+      <table>
+        <tr>
+          <th>Question Category</th>
+          <td>
+            <select name="listlabel" id="listlabel">
+              <option value="1">Goods for Sale</option>
+              <option value="2">Complaints</option>
+              <option value="3">Support</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>Question</th>
+          <td><textarea placeholder="Enter your question"class="inputFields" cols="30" rows="5"></textarea></td>
+        </tr>
+        <tr>
+          <th>Your Name</th>
+          <td><input type="text" placeholder="Enter your name"class="inputFields" /></td>
+        </tr>
+        <tr>
+          <th>Your Email</th>
+          <td><input placeholder="Enter a valid email" type="text" id="email" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button onclick="collectInformation();">Submit</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+  <script>
+    const checkInputFields = (field) => (field.length > 0) ? 1 : 0;
+    const checkEmail = (emailAddress) => (emailAddress.indexOf("@") !== -1 && emailAddress.indexOf(".") !== -1) ? 1: 0;
+    const collectInformation = () => {
+      const inputs = document.querySelectorAll(".inputFields");
+      const email = document.getElementById("email").value;
+      let inputIsValid = true;
+      let emailIsValid = checkEmail(email) == 1;
+      inputs.forEach((input) => {
+        if (checkInputFields(input.value) == 0) {
+          inputIsValid = false;}});
+      alert((inputIsValid == true && emailIsValid == true)? "Form posted successfully": "Invalid inputs");
+    };
+    const divToMove = document.getElementById("form");
+    let x = 0;
+    let y = 0;
+    let xSpeed = 0.5;
+    let ySpeed = 0.5;
+
+    const animate = () => {
+      x += xSpeed;
+      y += ySpeed;
+      if (x > window.innerWidth - divToMove.offsetWidth || x < 0) {
+        xSpeed = -xSpeed;
+      }
+      if (y > window.innerHeight - divToMove.offsetHeight || y < 0) {
+        ySpeed = -ySpeed;
+      }
+      divToMove.style.left = x + "px";
+      divToMove.style.top = y + "px";
+      setTimeout(animate, 10);
+    };
+    setTimeout(animate, 100);
+  </script>
+</html>
