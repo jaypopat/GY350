@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Calendar</title>
@@ -19,7 +18,7 @@
         <label for="month">Enter a month number (1-12): </label><br />
         <input type="number" id="month" name="month" /><br />
       </form>
-      <button id="btn" onclick="createCalendar()">Submit</button>
+      <button id="btn" onclick="curr()">Submit</button>
     </div>
     <p id="table"></p>
   </body>
@@ -27,8 +26,8 @@
     function createCalendar() {
       var yearNum = document.getElementById("year").value;
       var monthNum = document.getElementById("month").value;
-      var myDate = new Date();
-      var day = myDate.getDate();
+      var today = new Date();
+      var day = today.getDate();
       var datesArray = [];
       const daysInMonth = [
         31,
@@ -64,13 +63,22 @@
       var tHeader =
         "<tr><th>Sun</th><th>Mon</th><th>Tues</th><th>Wed</th><th>Thurs</th><th>Fri</th><th>Sat</th></tr>";
       var txt = "<table>" + tHeader + "<tr>";
+      console.log("day: ", day);
+      console.log("monthNum: ", monthNum);
+      console.log("year: ", yearNum);
+      console.log("datesArray: ", datesArray);
 
       for (let i = 0; i < datesArray.length; i++) {
         if (i % 7 == 0) {
           txt += "</tr><tr>";
         }
-        if (datesArray[i] === day) {
-          txt += "<td id = 'day'>" + datesArray[i] + "</td>";
+        if (
+          datesArray[i] === day &&
+          today.getMonth() == monthNum - 1 &&
+          today.getFullYear() == yearNum
+        ) {
+          console.log("Match found!");
+          txt += "<td id='today'>" + datesArray[i] + "</td>";
         } else if (datesArray[i] === "") {
           txt += "<td class = 'emptycells'></td>";
         } else {
@@ -86,6 +94,15 @@
       txt += "</tr></table>";
       document.getElementById("table").innerHTML = txt;
       hideButton();
+
+      const yearInput = document.getElementById("year");
+      const monthInput = document.getElementById("month");
+      yearInput.addEventListener("input", () => {
+        document.getElementById("btn").style.display = "block";
+      });
+      monthInput.addEventListener("input", () => {
+        document.getElementById("btn").style.display = "block";
+      });
     }
     function addLeadingZero(num) {
       if (num < 10) {

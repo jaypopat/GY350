@@ -62,7 +62,7 @@ td {
   text-align: center;
 }
 
-#day {
+#today {
   background-color: #614caf;
   color: white;
   font-weight: bold;
@@ -73,6 +73,6 @@ td {
 }
 
 #prevMonth,
-#nextMonth,#currMonth {
+#nextMonth {
   display: none;
 }

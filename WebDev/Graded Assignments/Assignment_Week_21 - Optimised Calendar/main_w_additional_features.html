@@ -21,10 +21,11 @@
       <button id="btn" onclick="curr()">Submit</button>
     </div>
     <p id="table"></p>
+
     <p style="text-align: center" id="currMonthAndYear"></p>
+
     <div id="adjacentMonths">
       <button onclick="prev();" id="prevMonth">Previous Month</button>
-      <button onclick="curr();" id="currMonth">Current Month</button>
       <button onclick="next();" id="nextMonth">Next Month</button>
     </div>
   </body>
@@ -32,10 +33,8 @@
     var yearNum = document.getElementById("year").value;
     var monthNum = document.getElementById("month").value;
     function createCalendar(monthNum, yearNum) {
-      var myDate = new Date();
-      var day = myDate.getDate();
-      var monthforCell = myDate.getMonth();
-      var yearforCell = myDate.getFullYear();
+      var today = new Date();
+      var day = today.getDate();
       var datesArray = [];
       const daysInMonth = [
         31,
@@ -54,8 +53,8 @@
       // this algorithm is used to create the number of unshifts to the array for the start of the month
       // Days elapsed from January 1, 1900 to December 31 of the previous year
       let daysElapsed =
-        (yearNum - 1900) * 365 + count_leap_years(1900,yearNum);
-        console.log(daysElapsed);
+        (yearNum - 1900) * 365 + count_leap_years(1900, yearNum);
+      console.log(daysElapsed);
 
       // Days elapsed from January 1 to the start of the given month
       for (let i = 0; i < monthNum - 1; i++) {
@@ -77,8 +76,13 @@
         if (i % 7 == 0) {
           txt += "</tr><tr>";
         }
-        if (datesArray[i] === day && monthNum === ((monthforCell)+1) && yearNum === yearforCell) {
-          txt += "<td id = 'day'>" + datesArray[i] + "</td>";
+        if (
+          datesArray[i] === day &&
+          today.getMonth() == monthNum - 1 &&
+          today.getFullYear() == yearNum
+        ) {
+          console.log("Match found!");
+          txt += "<td id='today'>" + datesArray[i] + "</td>";
         } else if (datesArray[i] === "") {
           txt += "<td class = 'emptycells'></td>";
         } else {
@@ -95,6 +99,14 @@
       document.getElementById("table").innerHTML = txt;
       hideButton();
       displayButton();
+      const yearInput = document.getElementById("year");
+      const monthInput = document.getElementById("month");
+      yearInput.addEventListener("input", () => {
+        document.getElementById("btn").style.display = "block";
+      });
+      monthInput.addEventListener("input", () => {
+        document.getElementById("btn").style.display = "block";
+      });
     }
     const months = [
       "January",
@@ -113,6 +125,14 @@
     function curr() {
       let yearNum = document.getElementById("year").value;
       let monthNum = document.getElementById("month").value;
+      let today = new Date();
+
+      // Check if input fields are empty
+      if (!yearNum || !monthNum) {
+        yearNum = today.getFullYear();
+        monthNum = today.getMonth() + 1;
+      }
+
       createCalendar(monthNum, yearNum);
       document.getElementById("currMonthAndYear").innerHTML =
         months[monthNum - 1] + " " + yearNum;
@@ -145,14 +165,14 @@
         months[monthNum - 1] + " " + yearNum;
     }
     function count_leap_years(start_year, end_year) {
-  let count = 0;
-  for (let year = start_year; year <= end_year; year++) {
-    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-      count++;
+      let count = 0;
+      for (let year = start_year; year <= end_year; year++) {
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+          count++;
+        }
+      }
+      return count;
     }
-  }
-  return count;
-}
 
     function addLeadingZero(num) {
       if (num < 10) {
@@ -200,7 +220,6 @@
     function displayButton() {
       document.getElementById("prevMonth").style.display = "block";
       document.getElementById("nextMonth").style.display = "block";
-      document.getElementById("currMonth").style.display = "block";
       const adjacentMonths = document.getElementById("adjacentMonths");
       const buttons = adjacentMonths.getElementsByTagName("button");
       // centering the div
