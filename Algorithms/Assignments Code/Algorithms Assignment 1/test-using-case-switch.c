@@ -305,3 +305,4 @@ void insertionSort(int arrA[], int size)
     printf("Insertion Sort: %d swaps, %d comparisons\n", numSwaps, numComparisons);
 }
 
+    

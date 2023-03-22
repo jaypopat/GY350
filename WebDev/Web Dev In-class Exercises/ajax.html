@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <script>
+      function getTime() {
+        // Create new XMLHttpRequest Object
+        var requester = new XMLHttpRequest();
+
+        /* Monitor the onreadystatechange event for a change in the readyState.
+    This function will be executed whenever the readyState is changed so must be declared before the request is sent */
+        requester.onreadystatechange = function () {
+          if (requester.readyState == 4 && requester.status == 200) {
+            // Put the response into the div
+            document.getElementById("divTime").innerHTML =
+              requester.responseText;
+          }
+        };
+
+        // Open connection to time.php and send the request asynchronously
+        requester.open("GET", "https://www.dark-wind.com/ct1114time.php", true);
+        requester.send();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>The time on the server is:</h1>
+    <div id="divTime"></div>
+    <button onclick="getTime();">Update Time</button>
+  </body>
+</html>
