@@ -77,7 +77,6 @@ void mergeSort(int arrA[], int lb, int ub) {
     if (lb < ub) {
         mid =((lb + ub) / 2);
         mergeSort(arrA, lb, mid);
-        recursiveCalls++;
         mergeSort(arrA, mid + 1, ub);
         recursiveCalls++;
         merge(arrA, lb, mid, ub);
