@@ -10,18 +10,19 @@
                 if (num > biggestNum) biggestNum = num;
                 if (num < smallestNum) smallestNum = num;
                 sum += randomNums[i];
-                average=sum/randomNums.length;
             }
+            average=sum/randomNums.length;
+
         var p1 = document.getElementById("para1");
         var p2 = document.getElementById("para2");
         p1.innerHTML = "sum is "+sum + "<br>" + "average is "+average+ "<br>" + "biggest number is "+biggestNum+ "<br>" + "smallest number is "+smallestNum;
         for (let i = 0;i < 100;i++)
-        {   
-            p2.innerHTML += randomNums[i]+" , ";
-            if (i == 99)
+        {   if (i == 99)
             {
             p2.innerHTML += randomNums[i]; //end of listed array elements
             }
+            else
+                p2.innerHTML += randomNums[i]+" , ";
         }
     }
     </script>

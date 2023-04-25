@@ -47,7 +47,7 @@ void selectionSort(int arrA[], int size) {
         for (j = min + 1; j < size; j++) {
             comparisons++;
             if (arrA[min] > arrA[j]) {
-                min = j;
+                min = j; // SWAP VALUES AT I AND J
             }
         } // end j for loop
 

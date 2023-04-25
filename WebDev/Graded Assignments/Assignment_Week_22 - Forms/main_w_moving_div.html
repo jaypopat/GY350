@@ -43,15 +43,15 @@
     </div>
   </body>
   <script>
-    const checkInputFields = (field) => (field.length > 0) ? 1 : 0;
-    const checkEmail = (emailAddress) => (emailAddress.indexOf("@") !== -1 && emailAddress.indexOf(".") !== -1) ? 1: 0;
+    const checkInputFields = (field) => (field.length > 0) ? true : false;
+    const checkEmail = (emailAddress) => (emailAddress.indexOf("@") !== -1 && emailAddress.indexOf(".") !== -1) ? true: false;
     const collectInformation = () => {
       const inputs = document.querySelectorAll(".inputFields");
       const email = document.getElementById("email").value;
       let inputIsValid = true;
-      let emailIsValid = checkEmail(email) == 1;
+      let emailIsValid = checkEmail(email);
       inputs.forEach((input) => {
-        if (checkInputFields(input.value) == 0) {
+        if (checkInputFields(input.value) == false) {
           inputIsValid = false;}});
       alert((inputIsValid == true && emailIsValid == true)? "Form posted successfully": "Invalid inputs");
     };
@@ -65,15 +65,15 @@
       x += xSpeed;
       y += ySpeed;
       if (x > window.innerWidth - divToMove.offsetWidth || x < 0) {
-        xSpeed = -xSpeed;
+        xSpeed = xSpeed*-1;
       }
       if (y > window.innerHeight - divToMove.offsetHeight || y < 0) {
-        ySpeed = -ySpeed;
+        ySpeed = ySpeed*-1;
       }
       divToMove.style.left = x + "px";
       divToMove.style.top = y + "px";
       setTimeout(animate, 10);
     };
-    setTimeout(animate, 100);
+    animate();
   </script>
 </html>

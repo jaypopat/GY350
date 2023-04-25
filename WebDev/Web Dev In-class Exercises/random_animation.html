@@ -7,12 +7,13 @@
       div.style.left = x + "px";
       div.style.top = y + "px";
     }
+    setInterval(randomPos,1000);
   </script>
   <body>
     <div
       style="position: absolute; left: 0px; top: 0px"
       id="imgDiv"
-      onClick="randomPos()"
+      onClick="randomPos();"
     >
       <img
         src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png"

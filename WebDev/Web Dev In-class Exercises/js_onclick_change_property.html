@@ -3,20 +3,21 @@
     <title>CSS Exercise</title>
   </head>
   <script>
-    function changeColor(){
-        document.getElementById("p1").style.backgroundColor = "red";
+    const changeColor=(elem)=>{
+      let colour = ["red", "green", "yellow", "blue"];
+      elem.style.backgroundColor = colour[Math.floor(Math.random()*5)];
     }
   </script>
   <body>
     <h2>Kubla Khan</h2>
-    <p id ="p1" onclick = "changeColor()" style="color:red;">
+    <p id ="p1" onclick = "changeColor(this)" style="color:red;">
       In Xanadu did Kubla Khan<br>
       A stately pleasure-dome decree:<br>
       Where Alph, the sacred river, ran<br>
       Through caverns measureless to man<br>
       Down to a sunless sea. 
     </p>
-    <p id ="p2"style="color:green;">
+    <p onclick = "changeColor(this);" id="p2" style="color:green;">
       So twice five miles of fertile ground<br>
       With walls and towers were girdled round;<br>
       And there were gardens bright with sinuous rills,<br>
@@ -24,7 +25,7 @@
       And here were forests ancient as the hills,<br>
       Enfolding sunny spots of greenery. 
     </p>
-    <p id ="p3" style="color:green;">
+    <p onclick = "changeColor(this);" id ="p3" style="color:green;">
       But oh! that deep romantic chasm which slanted<br>
       Down the green hill athwart a cedarn cover!<br>
       A savage place! as holy and enchanted<br>

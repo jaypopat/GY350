@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script>
-	function addLeadingZero(num) {
-  if (num < 10) {
-    return "0" + num;
-  }
-  return num;
-}
-    
-    function updateClock() {
-        
+  <head>
+    <script>
+      function addLeadingZero(num) {
+        if (num < 10) return "0" + num;
+        else return num;
+      }
+      const updateClock = () => {
         window.setTimeout(updateClock, 1000);
 
-        var myDate = new Date();
+        let myDate = new Date();
 
-        var h = myDate.getHours();
-        var m = myDate.getMinutes();
-        var s = myDate.getSeconds();
-        var text = h + ":" + addLeadingZero(m) + ":" + addLeadingZero(s);
-        document.getElementById("theClock").innerHTML=text;
-        window.setTimeout(updateClock, 1000);
-	}
-</script>
-<body onload="updateClock();">
-    <p id="theClock" style="text-align:center; font-size:120px;">00:00:00</p>
-</body>
+        let h = myDate.getHours();
+        let m = myDate.getMinutes();
+        let s = myDate.getSeconds();
+        let text = h + ":" + addLeadingZero(m) + ":" + addLeadingZero(s);
+        document.getElementById("theClock").innerHTML = text;
+      };
+      setTimeout(updateClock, 1000);
+    </script>
+    <body>
+      <p id="theClock" style="text-align: center; font-size: 120px">00:00:00</p>
+    </body>
+  </head>
+</html>

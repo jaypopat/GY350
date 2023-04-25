@@ -1,19 +1,22 @@
 <html>
   <script>
-    function wasClicked() {
-      var str = prompt("Please type a number between 1 and 100");
+    const wasClicked = () => {
+      let str = prompt("Please type a number between 1 and 100");
       if (isNaN(str) || str < 0 || str >= 100) {
         alert("That's not a valid number");
       } else {
         alert("Thank you");
         var p = document.getElementById("W");
+        var content = "";
         for (i = 1; i <= str; i++) {
-          var number = document.write(i);
-          var linebreak = document.write("<br>");
-          p.innerHTML = number + linebreak;
+          content += i + " , ";
+          if (i == str) {
+            content += i;
+          }
         }
+        p.innerHTML = content;
       }
-    }
+    };
   </script>
   <body onload="wasClicked()">
     <p id="W">this right here is boutta get changed boi</p>
