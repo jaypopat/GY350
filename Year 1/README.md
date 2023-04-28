@@ -1,0 +1,1 @@
+This directory contains the day to day commits of GY350 Course modules - Web Development(CT114),Algorithms(CT102) and Programming(CT103).
