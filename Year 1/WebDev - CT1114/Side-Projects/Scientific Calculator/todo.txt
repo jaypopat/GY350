@@ -1,0 +1,5 @@
+                                            TODO
+    write functions for displayPrevAns right/left arrowkeys shift/alpha<br/>
+    have a look at this for further fraction implementations https://mathjs.org/docs/datatypes/fractions.html<br/>
+    look at how to integrate with flutter or swift etc since swift only works with macbook work with react/flutter
+    when shift alpha is pressed change innerhtml of buttons to different options

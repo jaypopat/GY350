@@ -1,0 +1,15 @@
+
+.scifi_calculator button:hover {
+  background-color: #8874d8;
+}
+.scifi_calculator {
+  width: 300px;
+  text-align: center;
+}
+
+button {
+  display: inline-block;
+  width: 40px;
+  margin: 5px;
+}
+

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="scifi_calculator">
+      <div id="buttons">
+        <input type="text" id="display" />
+        <button>Shift</button>
+        <button>Alpha</button>
+        <button>&#8594;</button>
+        <button>&#8592;</button>
+        <button onclick="inputChar(this.textContent)">log</button>
+        <button onclick="inputChar(this.textContent)">ln</button>
+        <button onclick="inputChar(this.textContent)">sin</button>
+        <button onclick="inputChar(this.textContent)">cos</button>
+        <button onclick="inputChar(this.textContent)">tan</button>
+        <button onclick="inputChar(this.textContent)">^</button>
+        <button onclick="inputChar(this.textContent)">/</button>
+        <button onclick="deleteLastChar()">DEL</button>
+        <button onclick="clearDisplay()">AC</button>
+        <button onclick="inputChar(this.textContent)">7</button>
+        <button onclick="inputChar(this.textContent)">8</button>
+        <button onclick="inputChar(this.textContent)">9</button>
+        <button onclick="inputChar(this.textContent)">4</button>
+        <button onclick="inputChar(this.textContent)">5</button>
+        <button onclick="inputChar(this.textContent)">6</button>
+        <button onclick="inputChar(this.textContent)">-</button>
+        <button onclick="inputChar(this.textContent)">*</button>
+        <button onclick="inputChar(this.textContent)">+</button>
+        <button onclick="inputChar(this.textContent)">1</button>
+        <button onclick="inputChar(this.textContent)">2</button>
+        <button onclick="inputChar(this.textContent)">3</button>
+        <button onclick="inputChar(this.textContent)">(</button>
+        <button onclick="inputChar(this.textContent)">)</button>
+        <button onclick="inputChar(this.textContent)">0</button>
+        <button onclick="inputChar(this.textContent)">.</button>
+        <button onclick="calculateResult()">=</button>
+        <button style ="width: 90px;" onclick="displayPrevAns();">Ans</button>
+      </div>
+    </div>
+  </body>
+</html>
