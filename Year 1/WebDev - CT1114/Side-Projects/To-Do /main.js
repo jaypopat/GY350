@@ -2,7 +2,6 @@ const newItem = document.getElementById("new-item");
 const addBtn = document.getElementById("add-btn");
 const list = document.getElementById("list");
 const deleteBtn = document.getElementById("delete-btn");
-
 // Function to add a new item to the list
 const addItem = (event) => {
   event.preventDefault();
@@ -23,10 +22,10 @@ const addItem = (event) => {
 // Function to mark an item as completed
 const completeItem = (event) => {
   // Check if the clicked element is an input checkbox
-  if (event.target.type === "checkbox") {
+  if (event.target.tagName === "INPUT") {
     // Find the list item
     const item = event.target.parentElement;
-    if (item) { // check whether the element that triggered the event is an input element.
+    if (item) {
       item.className = "completed";
     }
   }
@@ -36,3 +35,7 @@ const deleteCompleted = () => {
   const completedItems = list.querySelectorAll(".completed");
   completedItems.forEach((item) => item.remove());
 };
+// Add event listeners
+addBtn.addEventListener("click", addItem);
+list.addEventListener("click", completeItem);
+deleteBtn.addEventListener("click", deleteCompleted);

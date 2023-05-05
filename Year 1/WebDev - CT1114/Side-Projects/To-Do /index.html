@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>To-Do List</title>
@@ -9,11 +8,10 @@
 		<h1>To-Do List</h1>
 		<form>
 			<input type="text" id="new-item" placeholder="Add new item">
-			<button onclick = "addItem();"type="button" id="add-btn">Add</button>
+			<button type="button" id="add-btn">Add</button>
 		</form>
-		<ul onclick = "completeItem();" id="list">
-		</ul>
-		<button type="button" onclick = "deleteCompleted();"id="delete-btn">Delete completed items</button>
+		<ul id="list"></ul>
+		<button type="button" id="delete-btn">Delete completed items</button>
 	</div>
     <script src="main.js"></script>
 </body>
