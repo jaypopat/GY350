@@ -2,8 +2,8 @@ const newItem = document.getElementById("new-item");
 const addBtn = document.getElementById("add-btn");
 const list = document.getElementById("list");
 const deleteBtn = document.getElementById("delete-btn");
-// Function to add a new item to the list
-const addItem = (event) => {
+
+addBtn.addEventListener("click", (event)=>{
   event.preventDefault();
   // Create a new list item with a checkbox and label
   const inputValue = newItem.value.trim();
@@ -18,9 +18,8 @@ const addItem = (event) => {
     list.appendChild(li);
     newItem.value = "";
   }
-};
-// Function to mark an item as completed
-const completeItem = (event) => {
+});
+list.addEventListener("click", event => {
   // Check if the clicked element is an input checkbox
   if (event.target.tagName === "INPUT") {
     // Find the list item
@@ -29,13 +28,8 @@ const completeItem = (event) => {
       item.className = "completed";
     }
   }
-};
-// Function to delete all completed items
-const deleteCompleted = () => {
+});
+deleteBtn.addEventListener("click",() => {
   const completedItems = list.querySelectorAll(".completed");
   completedItems.forEach((item) => item.remove());
-};
-// Add event listeners
-addBtn.addEventListener("click", addItem);
-list.addEventListener("click", completeItem);
-deleteBtn.addEventListener("click", deleteCompleted);
+});
