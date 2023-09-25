@@ -11,7 +11,8 @@
 5. Create a new array ‘ratingPercent’ that contains the percentage of ratings for each star, e.g. 14.3% one star, 23.8% two star, etc.
    Display this to the screen in a similar manner to task 4.(20 marks)*/
 
-void main(){
+void main()
+{
 	int rating_number[21];
 	float average_rating, sum_rating  = 0;
 	int ratingFrequency[5]={0,0,0,0,0};//index values incremented
@@ -19,7 +20,7 @@ void main(){
 	int c,j;
 	float percentage_rating;
 	int ratingPercent[100];
-	
+
 	while (i<21) {
 		printf("Enter the rating number %d : ", i+1); 
 		scanf_s("%d", &rating_number[i]);
