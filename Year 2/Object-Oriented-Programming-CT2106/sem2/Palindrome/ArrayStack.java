@@ -12,6 +12,8 @@ public class ArrayStack implements Stack
    public ArrayStack() {
 	   // default constructor: creates stack with default capacity
 	   this(CAPACITY);
+	   Main.numOperations_stackAndQueues++;
+
    }
 
    public ArrayStack(int cap) {
@@ -22,22 +24,35 @@ public class ArrayStack implements Stack
    
    public void push(Object element) {
 	 if (isFull()) {
-	   JOptionPane.showMessageDialog(null, "ERROR: Stack is full.");
+		 Main.numOperations_stackAndQueues+=2; // function call and checking if value returned is equal to true, hence 2 operations
+
+		 JOptionPane.showMessageDialog(null, "ERROR: Stack is full.");// invokes a showMessageDialog method hence 1 operation
+		 Main.numOperations_stackAndQueues++;
 	   return;
 	 }
-	 top++;
-	 S[top] = element;
+	 top++; // increment operation
+	   Main.numOperations_stackAndQueues++;
+	 S[top] = element;// allocation operation
+	   Main.numOperations_stackAndQueues++;
    }
 
    public Object pop() {
 	  Object element;
 	  if (isEmpty()) {
+		  Main.numOperations_stackAndQueues+=2;
 	     JOptionPane.showMessageDialog(null, "ERROR: Stack is empty.");
+		  Main.numOperations_stackAndQueues++;
 	     return  null;
 	  }
 	  element = S[top];
+	   // allocation operation
+	   Main.numOperations_stackAndQueues++;
 	  S[top] = null;
+	   // allocation operation
+	   Main.numOperations_stackAndQueues++;
 	  top--;
+	   // decrement operation
+	   Main.numOperations_stackAndQueues++;
 	  return element;
    }
 
@@ -50,11 +65,15 @@ public class ArrayStack implements Stack
    }
 	   
    public boolean isEmpty() {
-		  return (top < 0);
+	   // evaluates expression 'rear<0' into a boolean
+	   Main.numOperations_stackAndQueues++;
+	   return (top < 0);
    }
 
    public boolean isFull() {
-		  return (top == capacity-1);
+	   // evaluates expression 'top == capacity-1' into a boolean
+	   Main.numOperations_stackAndQueues++;
+	   return (top == capacity-1);
    }
 
    public int size() { 
