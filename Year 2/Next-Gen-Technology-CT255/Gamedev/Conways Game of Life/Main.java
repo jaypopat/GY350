@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
-public class Main extends JFrame implements KeyListener, MouseListener, Runnable {
+public class Main extends JFrame implements MouseListener, Runnable {
 
     private static final Dimension WindowSize = new Dimension(800, 800);
     private final BufferStrategy strategy;
@@ -20,7 +18,7 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
 
 
     Main() {
-        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = screenSize.width / 2 - WindowSize.width / 2;
         int y = screenSize.height / 2 - WindowSize.height / 2;
         this.setTitle("Conways Game of Life");
@@ -29,7 +27,6 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
 
         this.setVisible(true);
         this.addMouseListener(this);
-        addKeyListener(this);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.createBufferStrategy(2);
         strategy = getBufferStrategy();
@@ -48,12 +45,23 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
         int row = y / cellHeight; // calculating cell row based on mouse click
         int col = x / cellWidth; // calculating cell column based on mouse click
 
-        gameState[row][col][currentBuffer] = !gameState[row][col][currentBuffer];
-        repaint();
+        // Check if "Random" button is clicked
+        if (x >= 90 && x <= (90 + 80) && y >= 40 && y <= (40 + 25)) {
+            randomiseGameState();
+            System.out.println("Randomized");
+        }
 
+        // Check if "Start" button is clicked
+        if (x >= 30 && x <= (30 + 50) && y >= 40 && y <= (40 + 25)) {
+            isPLaying = !isPLaying;
+            System.out.println("Playing: " + isPLaying);
+        } else {
+            gameState[row][col][currentBuffer] = !gameState[row][col][currentBuffer];
+            repaint();
 
-        System.out.println("Row: " + row);
-        System.out.println("Col: " + col);
+            System.out.println("Row: " + row);
+            System.out.println("Col: " + col);
+        }
 
     }
 
@@ -88,64 +96,39 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
             if (isPLaying) {
                 updateGameState();
             }
-    }
-    }
-
-    public void keyPressed(KeyEvent e) {
-
-
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            randomiseGameState();
-            System.out.println("randomised");
-        }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            isPLaying = !isPLaying;
         }
     }
-
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    public void keyTyped(KeyEvent e) {
-    }
-
 
     @Override
     public void paint(Graphics g) {
+
+        if (strategy == null) {
+            return; // Early return if strategy hasn't been initialized yet
+        }
 
         g = strategy.getDrawGraphics();
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WindowSize.width, WindowSize.height);
 
 
-//        g.setColor(Color.GREEN);
-//        g.fillRect(190,  10,  100,  50); // Position and size of the Random button
-//        g.setColor(Color.BLACK);
-//        g.drawString("Random",  20,  30); // Position of the Start label
-//
-//        g.setColor(Color.GREEN);
-//        g.fillRect(120,  70,  100,  50); // Position and size of the Random button
-//        g.setColor(Color.BLACK);
-//        g.drawString("Random",  20,  30); // Position of the Start label
-
-
         g.setColor(Color.WHITE);
         for (int row = 0; row < gameState.length; row++) {
             for (int col = 0; col < gameState[row].length; col++) {
-                if (isLiveCell(row, col)) { // If the cell is true
+                if (gameState[row][col][currentBuffer]) //if cell is live
+                { // If the cell is true
                     g.fillRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
                 }
             }
         }
 
-//        g.setColor(Color.GREEN);
-//        g.fillRect(30,40,50,25);
-//        g.fillRect(90,40,80,25);
-//        g.setColor(Color.WHITE);
-//        g.setFont(new Font("TimesRoman",Font.PLAIN,15));
-//        g.drawString("Start",35,60);
-//        g.drawString("Random",95,60);
+        g.setColor(Color.GREEN);
+        g.fillRect(30, 40, 50, 25);
+        g.fillRect(90, 40, 80, 25);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        g.drawString("Start", 35, 60);
+        g.drawString("Random", 95, 60);
+
 
         strategy.show();
     }
@@ -154,9 +137,6 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
         new Main();
     }
 
-    public boolean isLiveCell(int row, int col) {
-        return gameState[row][col][currentBuffer];
-    }
 
     public void updateGameState() {
         logic();
@@ -175,44 +155,25 @@ public class Main extends JFrame implements KeyListener, MouseListener, Runnable
     }
 
     public void logic() {
-        for (int row = 0; row < gameState.length; row++) {
-            for (int col = 0; col < gameState[0].length; col++) {
-                int liveNeighbours = getLiveNeighbours(row, col);
-                boolean isAlive = isLiveCell(row, col);
+        int nextBuffer = 1 - currentBuffer; // Determine the back buffer
 
-                // Apply game rules based on the current state of the cell and its neighbors
-                if (isAlive) {
-                    // If the cell is alive
-                    switch (liveNeighbours) {
-                        case 0:
-                        case 1:
-                            gameState[row][col][currentBuffer] = false; // dies by under-population
-                            break;
-                        case 2:
-                        case 3:
-                            gameState[row][col][currentBuffer] = true; // lives on to the next generation
-                            break;
-                        default:
-                            if (liveNeighbours > 3) {
-                                gameState[row][col][currentBuffer] = false; // dies by overcrowding
-                            }
-                            break;
-                    }
+        for (int row = 0; row < gameState.length; row++) {
+            for (int col = 0; col < gameState[row].length; col++) {
+                int liveNeighbours = getLiveNeighbours(row, col);
+                boolean isAlive = gameState[row][col][currentBuffer]; // Read from the current buffer
+
+                if (isAlive && (liveNeighbours < 2 || liveNeighbours > 3)) {
+                    gameState[row][col][nextBuffer] = false; // Cell dies
+                } else if (!isAlive && liveNeighbours == 3) {
+                    gameState[row][col][nextBuffer] = true; // Cell becomes alive
                 } else {
-                    // If the cell is dead
-                    if (liveNeighbours == 3) {
-                        gameState[row][col][currentBuffer] = true; // lives as if by reproduction
-                    }
+                    gameState[row][col][nextBuffer] = gameState[row][col][currentBuffer]; // Keeps current state
                 }
             }
         }
 
-        // Switch buffers
-        currentBuffer = 1 - currentBuffer;
-
-        repaint();
+        currentBuffer = nextBuffer; // Switch the buffers
     }
-
 
 
     public int getLiveNeighbours(int row, int col) {
